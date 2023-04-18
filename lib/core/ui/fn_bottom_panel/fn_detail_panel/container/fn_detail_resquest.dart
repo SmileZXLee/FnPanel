@@ -52,7 +52,7 @@ class _FnDetailRequestState extends State<FnDetailRequest> {
         requestModel,
         RequestType.query,
         queryParameters.isNotEmpty,
-        _isQueryParsed ? (requestModel.data is Map ? FnJsonViewer(queryParameters) : FnEmptyText(text: "No Preview")) :
+        _isQueryParsed ? FnJsonViewer(queryParameters) :
         SelectableText(
           Uri(queryParameters: queryParameters).query,
           style: TextStyle(
@@ -71,7 +71,7 @@ class _FnDetailRequestState extends State<FnDetailRequest> {
         requestModel,
         RequestType.body,
         requestModel.data != null,
-        _isBodyParsed ? (requestModel.data is Map ? FnJsonViewer(requestModel.data) : FnEmptyText(text: "No Preview")) :
+        _isBodyParsed && requestModel.data is Map ? FnJsonViewer(requestModel.data) :
         SelectableText(
           json.encode(requestModel.data),
           style: TextStyle(
