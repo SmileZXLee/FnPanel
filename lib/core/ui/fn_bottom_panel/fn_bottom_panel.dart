@@ -9,6 +9,8 @@ import 'fn_brief_panel/fn_brief_panel.dart';
 import 'fn_detail_panel/fn_detail_panel.dart';
 
 class FnBottomPanel extends Object {
+  static bool _isAddedGlobalButton = false;
+
   static BuildContext? _currentDialogContext;
   static BuildContext? _currentGlobalButtonContext;
 
@@ -18,11 +20,15 @@ class FnBottomPanel extends Object {
   ///
   /// context
   /// Returns void
-  static void show(BuildContext context) async{
+  static void show(BuildContext context) {
     if (_currentDialogContext == null) {
-      _currentDialogContext = context;
-      removeGlobalButton();
-      await showDialog(
+      Future.delayed(Duration(milliseconds: 10), () async{
+        _currentDialogContext = context;
+        if (_isAddedGlobalButton) {
+          _removeGlobalButton();
+        }
+
+        await showDialog(
         context: context,
         useSafeArea: false,
         builder: (BuildContext context) {
@@ -30,9 +36,15 @@ class FnBottomPanel extends Object {
               child: FnBottomContentPanel()
           );
         },
-      );
-      addGlobalButton(_currentGlobalButtonContext);
-      _currentDialogContext = null;
+        );
+
+        if (_isAddedGlobalButton) {
+          Future.delayed(Duration(milliseconds: 100), () {
+            addGlobalButton(_currentGlobalButtonContext);
+          });
+        }
+        _currentDialogContext = null;
+      });
     }
   }
 
@@ -52,18 +64,21 @@ class FnBottomPanel extends Object {
   /// context
   /// Returns void
   static void addGlobalButton(BuildContext? context) {
-    if (_currentGlobalButton == null && context != null) {
-      _currentGlobalButtonContext = context;
-      final overlayState = Overlay.of(context)!;
-      _currentGlobalButton = OverlayEntry(
-        builder: (BuildContext context) => FnGlobalButton(
-          onPressed: () {
-            show(context);
-          }
-        ),
-      );
-      overlayState.insert(_currentGlobalButton!);
-    }
+    Future.delayed(Duration(milliseconds: 10), () {
+      if (_currentGlobalButton == null && context != null) {
+        _isAddedGlobalButton = true;
+        _currentGlobalButtonContext = context;
+        final overlayState = Overlay.of(context)!;
+        _currentGlobalButton = OverlayEntry(
+          builder: (BuildContext context) => FnGlobalButton(
+              onPressed: () {
+                show(context);
+              }
+          ),
+        );
+        overlayState.insert(_currentGlobalButton!);
+      }
+    });
   }
 
   /// 移除全局按钮
@@ -71,6 +86,18 @@ class FnBottomPanel extends Object {
   ///
   /// Returns void
   static void removeGlobalButton() {
+    if (_currentGlobalButton != null) {
+      _isAddedGlobalButton = false;
+      _currentGlobalButton!.remove();
+      _currentGlobalButton = null;
+    }
+  }
+
+  /// 移除全局按钮(私有)
+  ///
+  ///
+  /// Returns void
+  static void _removeGlobalButton() {
     if (_currentGlobalButton != null) {
       _currentGlobalButton!.remove();
       _currentGlobalButton = null;

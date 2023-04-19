@@ -62,7 +62,7 @@ class _FnDetailRequestState extends State<FnDetailRequest> {
               color: Colors.black
           ),
           onTap: () {
-            FnPrintUtils.printDebug(Uri(queryParameters: queryParameters).query);
+            FnPrintUtils.print(Uri(queryParameters: queryParameters).query);
           },
         )
     );
@@ -81,7 +81,7 @@ class _FnDetailRequestState extends State<FnDetailRequest> {
               color: Colors.black
           ),
           onTap: () {
-            FnPrintUtils.printDebug(json.encode(requestModel.data));
+            FnPrintUtils.print(json.encode(requestModel.data));
           },
         )
     );

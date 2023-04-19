@@ -71,7 +71,7 @@ class _FnDetailResponseState extends State<FnDetailResponse> {
                   color: Colors.black,
                 ),
                 onTap: () {
-                  FnPrintUtils.printDebug(json.encode(responseModel.data));
+                  FnPrintUtils.print(json.encode(responseModel.data));
                 },
               ),
             )

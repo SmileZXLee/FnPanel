@@ -1,11 +1,18 @@
 
+enum Level {
+  debug,
+  release,
+}
+
 /// FnPanel
 ///
 /// FnPanel通用配置
 class FnConfig {
   FnGlobalButtonConfig? globalButtonConfig;
 
-  FnConfig({this.globalButtonConfig});
+  Level? level;
+
+  FnConfig({this.globalButtonConfig, this.level});
 }
 
 class FnGlobalButtonConfig {

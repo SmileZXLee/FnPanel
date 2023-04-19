@@ -137,7 +137,7 @@ class _FnDetailHeadersState extends State<FnDetailHeaders> {
                         ],
                       ),
                       onTap: () {
-                        FnPrintUtils.printDebug("${header['title']}: ${header['desc']}");
+                        FnPrintUtils.print("${header['title']}: ${header['desc']}");
                       },
                     ),
                   );
