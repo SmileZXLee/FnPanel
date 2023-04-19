@@ -63,13 +63,16 @@ class _FnDetailPanelState extends State<FnDetailPanel> {
                       ),
                     ),
                     child: Center(
-                      child: Text(
-                        _tabs[i],
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 11.5,
-                          fontWeight: FontWeight.bold,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          _tabs[i],
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),

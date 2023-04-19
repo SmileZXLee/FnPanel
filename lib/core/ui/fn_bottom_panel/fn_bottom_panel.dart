@@ -10,33 +10,40 @@ import 'fn_brief_panel/fn_brief_panel.dart';
 import 'fn_detail_panel/fn_detail_panel.dart';
 
 class FnBottomPanel extends Object {
-  static BuildContext? _currentContext;
+  static BuildContext? _currentDialogContext;
+  static BuildContext? _currentGlobalButtonContext;
 
   static OverlayEntry? _currentGlobalButton = null;
 
-  static void show(BuildContext context,{String message = "loading..."}) {
-    showDialog(
-      context: context,
-      useSafeArea: false,
-      builder: (BuildContext context) {
-        return FnBaseBottomPanel(
-            child: FnBottomContentPanel()
-        );
-      },
-    );
-    _currentContext = context;
-  }
-
-  static void dismiss(){
-    if (_currentContext != null) {
-      Navigator.pop(_currentContext!);
-      _currentContext = null;
+  static void show(BuildContext context,{String message = "loading..."}) async{
+    if (_currentDialogContext == null) {
+      _currentDialogContext = context;
+      removeGlobalButton(_currentGlobalButtonContext);
+      await showDialog(
+        context: context,
+        useSafeArea: false,
+        builder: (BuildContext context) {
+          return FnBaseBottomPanel(
+              child: FnBottomContentPanel()
+          );
+        },
+      );
+      addGlobalButton(_currentGlobalButtonContext);
+      _currentDialogContext = null;
     }
   }
 
-  static void addGlobalButton(BuildContext context) {
+  static void dismiss(){
+    if (_currentDialogContext != null) {
+      Navigator.pop(_currentDialogContext!);
+      _currentDialogContext = null;
+    }
+  }
+
+  static void addGlobalButton(BuildContext? context) {
     if (_currentGlobalButton == null) {
-      final overlayState = Overlay.of(context)!;
+      _currentGlobalButtonContext = context;
+      final overlayState = Overlay.of(context!)!;
       _currentGlobalButton = OverlayEntry(
         builder: (BuildContext context) => FnGlobalButton(
           onPressed: () {
@@ -49,9 +56,10 @@ class FnBottomPanel extends Object {
     }
   }
 
-  static void removeGlobalButton(BuildContext context) {
+  static void removeGlobalButton(BuildContext? context) {
     if (_currentGlobalButton != null) {
       _currentGlobalButton!.remove();
+      _currentGlobalButton = null;
     }
   }
 }
@@ -87,7 +95,7 @@ class _FnBottomContentPanelState extends State<FnBottomContentPanel> {
 
   @override
   Widget build(BuildContext context) {
-    double panelHeight = MediaQuery.of(context).size.height / 2.2 + MediaQuery.of(context).padding.bottom;
+    double panelHeight = MediaQuery.of(context).size.height / 2.1 + MediaQuery.of(context).padding.bottom;
     return _requestList.isNotEmpty ? Column(
       mainAxisSize: MainAxisSize.max,
       children: [
