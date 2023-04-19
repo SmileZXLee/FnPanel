@@ -31,7 +31,11 @@ FnPanel.showPanel(context);
 ## 预览
 |                           操作演示                           |                       请求详情-Headers                       |                      请求详情-Response                       |
 | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| <img src="https://zxlee.cn/img/fn-panle-demo1.gif" width="320"/> | <img src="https://zxlee.cn/img/fn-panle-demo2.png" width="320"/> | <img src="https://zxlee.cn/img/fn-panle-demo3.png" width="320"/> |
+| <img src="https://zxlee.cn/img/fn-panle-demo1.gif" style="width:300px"/> | <img src="https://zxlee.cn/img/fn-panle-demo2.png" style="width:300px"/> | <img src="https://zxlee.cn/img/fn-panle-demo3.png" style="width:300px"/> |
+
+
+
+
 
 
 
