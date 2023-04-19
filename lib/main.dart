@@ -78,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
       FnPanel.setDio(dio);
 
       // 发送GET请求
-      Response response = await dio.get('https://api2.z-notify.zxlee.cn/v1/public/versions/8292724618483712000/1?test=1');
+      Response response = await dio.get('https://api.z-notify.zxlee.cn/v1/project/projects?current=1&pageSize=10');
 
       // 打印响应数据
       print(response.data);

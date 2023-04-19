@@ -19,9 +19,7 @@ class FnDioInterceptor extends InterceptorsWrapper {
     RequestModel requestModel = requestParser.parser(options);
     CommonData.requestList.add(requestModel);
 
-    if (CommonData.requestUpdateCallback != null) {
-      CommonData.requestUpdateCallback!();
-    }
+    _updateRequest();
 
     super.onRequest(options, handler);
   }
@@ -36,15 +34,29 @@ class FnDioInterceptor extends InterceptorsWrapper {
       CommonData.requestingMap.remove(response.requestOptions.hashCode);
     }
 
-    if (CommonData.requestUpdateCallback != null) {
-      CommonData.requestUpdateCallback!();
-    }
+    _updateRequest();
 
     super.onResponse(response, handler);
   }
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
+    ResponseParser responseParser = DioResponseParser();
+    ResponseModel responseModel = responseParser.parser(err.response);
+    int? requestIndex = CommonData.requestingMap[err.requestOptions.hashCode];
+    if (requestIndex != null) {
+      CommonData.requestList[requestIndex].response = responseModel;
+      CommonData.requestingMap.remove(err.requestOptions.hashCode);
+    }
+
+    _updateRequest();
+
     super.onError(err, handler);
+  }
+
+  void _updateRequest() {
+    if (CommonData.requestUpdateCallback != null) {
+      CommonData.requestUpdateCallback!();
+    }
   }
 }
