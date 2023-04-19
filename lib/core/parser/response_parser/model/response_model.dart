@@ -1,7 +1,7 @@
-/// 创建时间：2023/4/14
-/// 作者：zxlee
-/// 描述：ResponseModel
 
+/// FnPanel
+///
+/// Response包装类
 class ResponseModel extends Object{
   /// URL
   String url;

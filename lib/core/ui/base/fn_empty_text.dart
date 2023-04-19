@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// FnPanel
+///
+/// 通用空数据Text
 class FnEmptyText extends StatefulWidget {
   final String text;
 

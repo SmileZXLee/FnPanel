@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fn_panel/core/parser/export_parser/impl/curl_export_parser.dart';
 
 import 'package:fn_panel/core/parser/request_parser/model/request_model.dart';
@@ -9,6 +10,9 @@ import 'container/fn_detail_headers.dart';
 import 'container/fn_detail_resquest.dart';
 import 'container/fn_detail_timing.dart';
 
+/// FnPanel
+///
+/// FnPanel右侧请求详情面板
 class FnDetailPanel extends StatefulWidget {
   final RequestModel? requestModel;
   final Function? onClose;
@@ -91,6 +95,7 @@ class _FnDetailPanelState extends State<FnDetailPanel> {
                   if (value == "curl") {
                     CurlExportParser exportParser = CurlExportParser();
                     String result = exportParser.parser(widget.requestModel!);
+                    Clipboard.setData(ClipboardData(text: result));
                     FnPrintUtils.printDebug(result);
                   }
                 },

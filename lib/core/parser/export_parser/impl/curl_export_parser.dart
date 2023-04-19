@@ -3,6 +3,9 @@ import 'dart:convert';
 import 'package:fn_panel/core/parser/export_parser/export_parser.dart';
 import 'package:fn_panel/core/parser/request_parser/model/request_model.dart';
 
+/// FnPanel
+///
+/// 请求导出cUrl实现
 class CurlExportParser extends ExportParser {
   @override
   String parser(RequestModel requestModel) {

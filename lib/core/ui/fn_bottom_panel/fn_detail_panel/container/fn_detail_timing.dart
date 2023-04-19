@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 
 import 'package:fn_panel/core/parser/request_parser/model/request_model.dart';
@@ -7,6 +5,9 @@ import 'package:fn_panel/core/parser/response_parser/model/response_model.dart';
 import 'package:fn_panel/core/ui/base/fn_empty_text.dart';
 import 'package:fn_panel/core/utils/fn_time_utils.dart';
 
+/// FnPanel
+///
+/// FnPanel左侧请求详情-Timing
 class FnDetailTiming extends StatefulWidget {
   final RequestModel? requestModel;
   const FnDetailTiming({Key? key, this.requestModel}) : super(key: key);

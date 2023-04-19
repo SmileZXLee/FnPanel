@@ -68,16 +68,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // FnBottomPanel.show(context);
 
-    FnBottomPanel.addGlobalButton(context);
+    FnPanel.setGlobalButton(context);
+
 
     Future.delayed(Duration(seconds: 5), () async{
       // 创建一个dio实例
       Dio dio = Dio();
 
-      FnPanel.initWithDio(dio);
+      FnPanel.setDio(dio);
 
       // 发送GET请求
-      Response response = await dio.get('https://api.z-notify.zxlee.cn/v1/public/versions/8292724618483712000/1?test=1');
+      Response response = await dio.get('https://api2.z-notify.zxlee.cn/v1/public/versions/8292724618483712000/1?test=1');
 
       // 打印响应数据
       print(response.data);

@@ -3,6 +3,9 @@ import 'package:fn_panel/core/data/common_data.dart';
 import 'package:fn_panel/core/parser/request_parser/model/request_model.dart';
 import 'package:fn_panel/core/utils/fn_text_utils.dart';
 
+/// FnPanel
+///
+/// FnPanel左侧请求缩略面板
 class FnBriefPanel extends StatefulWidget {
   final List<RequestModel>? requestList;
   final Function(RequestModel)? onSelected;

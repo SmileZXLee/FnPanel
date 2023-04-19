@@ -1,57 +1,59 @@
 import 'package:dio/dio.dart';
-import 'package:fn_panel/core/parser/request_parser/impl/dio_request_parser.dart';
-import 'package:fn_panel/core/parser/request_parser/model/request_model.dart';
-import 'package:fn_panel/core/parser/request_parser/request_parser.dart';
-import 'package:fn_panel/core/parser/response_parser/impl/dio_response_parser.dart';
-import 'package:fn_panel/core/parser/response_parser/model/response_model.dart';
-import 'package:fn_panel/core/parser/response_parser/response_parser.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:fn_panel/core/interceptor/fn_dio_interceptor.dart';
+import 'package:fn_panel/core/ui/config/fn_config.dart';
+import 'package:fn_panel/core/ui/fn_bottom_panel/fn_bottom_panel.dart';
 
 import 'data/common_data.dart';
 
 class FnPanel {
 
-  static Function? requestUpdateCallback;
-
-  static void initWithDio(Dio dio) {
-    dio.interceptors
-        .add(_FnDioInterceptors());
-  }
-}
-
-class _FnDioInterceptors extends InterceptorsWrapper {
-  @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    CommonData.requestingMap[options.hashCode] = CommonData.requestList.length;
-    RequestParser requestParser = DioRequestParser();
-    RequestModel requestModel = requestParser.parser(options);
-    CommonData.requestList.add(requestModel);
-
-    if (FnPanel.requestUpdateCallback != null) {
-      FnPanel.requestUpdateCallback!();
-    }
-
-    super.onRequest(options, handler);
+  /// 设置网络请求dio
+  ///
+  /// di0
+  /// Returns void
+  static void setDio(Dio dio) {
+    dio.interceptors.add(FnDioInterceptor());
   }
 
-  @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) {
-    ResponseParser responseParser = DioResponseParser();
-    ResponseModel responseModel = responseParser.parser(response);
-    int? requestIndex = CommonData.requestingMap[response.requestOptions.hashCode];
-    if (requestIndex != null) {
-      CommonData.requestList[requestIndex].response = responseModel;
-      CommonData.requestingMap.remove(response.requestOptions.hashCode);
-    }
-
-    if (FnPanel.requestUpdateCallback != null) {
-      FnPanel.requestUpdateCallback!();
-    }
-
-    super.onResponse(response, handler);
+  /// 设置通用配置
+  ///
+  /// config
+  /// Returns void
+  static void setConfig(FnConfig config) {
+    CommonData.config = config;
   }
 
-  @override
-  void onError(DioError err, ErrorInterceptorHandler handler) {
-    super.onError(err, handler);
+  /// 添加全局按钮
+  ///
+  /// context
+  /// Returns void
+  static void setGlobalButton(BuildContext context) {
+    FnBottomPanel.addGlobalButton(context);
   }
+
+  /// 移除全局按钮
+  ///
+  ///
+  /// Returns void
+  static void removeGlobalButton() {
+    FnBottomPanel.removeGlobalButton();
+  }
+
+  /// 显示FnPanel
+  ///
+  /// context
+  /// Returns void
+  static void showPanel(BuildContext context) {
+    FnBottomPanel.show(context);
+  }
+
+  /// 关闭FnPanel
+  ///
+  /// context
+  /// Returns void
+  static void dismissPanel(BuildContext context) {
+    FnBottomPanel.dismiss();
+  }
+
 }

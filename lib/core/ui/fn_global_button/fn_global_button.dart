@@ -1,13 +1,16 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:fn_panel/core/data/common_data.dart';
 
+import 'package:fn_panel/core/data/common_data.dart';
+import 'package:fn_panel/core/ui/config/fn_config.dart';
+
+/// FnPanel
+///
+/// 全局按钮
 class FnGlobalButton extends StatefulWidget {
   final VoidCallback onPressed;
-  final IconData icon;
 
-  const FnGlobalButton({Key? key, required this.onPressed, required this.icon}) : super(key: key);
+  const FnGlobalButton({Key? key, required this.onPressed}) : super(key: key);
 
   @override
   _FnGlobalButtonState createState() => _FnGlobalButtonState();
@@ -23,19 +26,29 @@ class DragSafeArea {
 }
 
 class _FnGlobalButtonState extends State<FnGlobalButton> {
-  final Size _buttonSize = Size(60.0, 20.0);
-  late final DragSafeArea _dragSafeArea = DragSafeArea(
-    MediaQuery.of(context).padding.top + 20,
-    20,
-    MediaQuery.of(context).size.height - _buttonSize.height - MediaQuery.of(context).padding.bottom - 20,
-    MediaQuery.of(context).size.width - _buttonSize.width - 20
-  );
-
-  late Offset _offset = CommonData.globalButtonOffset != null ? CommonData.globalButtonOffset! : Offset(_dragSafeArea.right, _dragSafeArea.bottom);
+  final Size _buttonSize = Size(70.0, 20.0);
+  DragSafeArea _dragSafeArea = DragSafeArea(0, 0, 0, 0);
+  Offset _offset = Offset.zero;
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final FnGlobalButtonConfig? config = CommonData.config?.globalButtonConfig;
+
+    double bottom = config?.bottom ?? 20.0;
+    double right = config?.right ?? 20.0;
+
+    _dragSafeArea = DragSafeArea(
+        MediaQuery.of(context).padding.top + 20,
+        20,
+        MediaQuery.of(context).size.height - _buttonSize.height - MediaQuery.of(context).padding.bottom - bottom,
+        MediaQuery.of(context).size.width - _buttonSize.width - right
+    );
+    setState(() {
+      _offset = CommonData.globalButtonOffset != null ? CommonData.globalButtonOffset! : Offset(_dragSafeArea.right, _dragSafeArea.bottom);
+      CommonData.globalButtonOffset = _offset;
+    });
   }
 
   @override

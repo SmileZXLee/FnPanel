@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
+/// FnPanel
+///
+/// 通用底部弹出widget
 class FnBaseBottomPanel extends StatefulWidget {
   final Widget child;
 
-  FnBaseBottomPanel({required this.child});
+  FnBaseBottomPanel({Key? key, required this.child}) : super(key: key);
 
   @override
   _FnBaseBottomPanelState createState() => _FnBaseBottomPanelState();

@@ -4,6 +4,10 @@ import 'package:fn_panel/core/parser/response_parser/model/response_model.dart';
 import 'package:fn_panel/core/ui/base/fn_custom_expansion_tile.dart';
 import 'package:fn_panel/core/utils/fn_print_utils.dart';
 import 'package:fn_panel/core/utils/fn_text_utils.dart';
+
+/// FnPanel
+///
+/// FnPanel左侧请求详情-Headers
 class FnDetailHeaders extends StatefulWidget {
   final RequestModel? requestModel;
   const FnDetailHeaders({Key? key, this.requestModel}) : super(key: key);

@@ -1,10 +1,15 @@
 
+/// FnPanel
+///
+/// 时间工具类
 class FnTimeUtils {
+  /// 获取当前时间戳
   static int getTimestamp() {
     DateTime now = DateTime.now();
     return now.millisecondsSinceEpoch;
   }
 
+  /// 格式化时间戳为yyyy-MM-dd HH:mm:ss.sss格式
   static String formatTimestamp(timestamp) {
     DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp);
     String formattedDate = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')} '
@@ -12,6 +17,7 @@ class FnTimeUtils {
     return formattedDate;
   }
 
+  /// 格式化毫秒为ms或s
   static String formatMilliseconds(int milliseconds) {
     if (milliseconds < 1000) {
       return '$milliseconds ms';

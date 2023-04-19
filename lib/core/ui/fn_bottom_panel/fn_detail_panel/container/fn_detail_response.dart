@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 
 import 'package:fn_panel/core/parser/request_parser/model/request_model.dart';
@@ -9,6 +8,9 @@ import 'package:fn_panel/core/ui/base/fn_custom_expansion_tile.dart';
 import 'package:fn_panel/core/ui/base/fn_empty_text.dart';
 import 'package:fn_panel/core/utils/fn_print_utils.dart';
 
+/// FnPanel
+///
+/// FnPanel左侧请求详情-Response
 class FnDetailResponse extends StatefulWidget {
   final RequestModel? requestModel;
   const FnDetailResponse({Key? key, this.requestModel}) : super(key: key);

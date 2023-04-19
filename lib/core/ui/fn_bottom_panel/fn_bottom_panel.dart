@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fn_panel/core/data/common_data.dart';
-import 'package:fn_panel/core/fn_panel.dart';
 import 'package:fn_panel/core/parser/request_parser/model/request_model.dart';
 import 'package:fn_panel/core/ui/base/fn_empty_text.dart';
 import 'package:fn_panel/core/ui/fn_global_button/fn_global_button.dart';
@@ -15,10 +14,14 @@ class FnBottomPanel extends Object {
 
   static OverlayEntry? _currentGlobalButton = null;
 
-  static void show(BuildContext context,{String message = "loading..."}) async{
+  /// 显示FnPanel
+  ///
+  /// context
+  /// Returns void
+  static void show(BuildContext context) async{
     if (_currentDialogContext == null) {
       _currentDialogContext = context;
-      removeGlobalButton(_currentGlobalButtonContext);
+      removeGlobalButton();
       await showDialog(
         context: context,
         useSafeArea: false,
@@ -33,6 +36,10 @@ class FnBottomPanel extends Object {
     }
   }
 
+  /// 关闭FnPanel
+  ///
+  ///
+  /// Returns void
   static void dismiss(){
     if (_currentDialogContext != null) {
       Navigator.pop(_currentDialogContext!);
@@ -40,29 +47,37 @@ class FnBottomPanel extends Object {
     }
   }
 
+  /// 添加全局按钮
+  ///
+  /// context
+  /// Returns void
   static void addGlobalButton(BuildContext? context) {
-    if (_currentGlobalButton == null) {
+    if (_currentGlobalButton == null && context != null) {
       _currentGlobalButtonContext = context;
-      final overlayState = Overlay.of(context!)!;
+      final overlayState = Overlay.of(context)!;
       _currentGlobalButton = OverlayEntry(
         builder: (BuildContext context) => FnGlobalButton(
           onPressed: () {
             show(context);
-          },
-          icon: Icons.add,
+          }
         ),
       );
       overlayState.insert(_currentGlobalButton!);
     }
   }
 
-  static void removeGlobalButton(BuildContext? context) {
+  /// 移除全局按钮
+  ///
+  ///
+  /// Returns void
+  static void removeGlobalButton() {
     if (_currentGlobalButton != null) {
       _currentGlobalButton!.remove();
       _currentGlobalButton = null;
     }
   }
 }
+
 
 class FnBottomContentPanel extends StatefulWidget {
 
@@ -80,7 +95,7 @@ class _FnBottomContentPanelState extends State<FnBottomContentPanel> {
   void initState() {
     super.initState();
 
-    FnPanel.requestUpdateCallback = () {
+    CommonData.requestUpdateCallback = () {
       setState(() {
         _requestList = CommonData.requestList;
       });
@@ -90,7 +105,7 @@ class _FnBottomContentPanelState extends State<FnBottomContentPanel> {
   @override
   void dispose() {
     super.dispose();
-    FnPanel.requestUpdateCallback = null;
+    CommonData.requestUpdateCallback = null;
   }
 
   @override

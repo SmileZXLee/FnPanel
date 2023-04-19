@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 
 import 'package:fn_panel/core/parser/request_parser/model/request_model.dart';
@@ -13,6 +12,9 @@ enum RequestType {
   query
 }
 
+/// FnPanel
+///
+/// FnPanel左侧请求详情-Request
 class FnDetailRequest extends StatefulWidget {
   final RequestModel? requestModel;
   const FnDetailRequest({Key? key, this.requestModel}) : super(key: key);

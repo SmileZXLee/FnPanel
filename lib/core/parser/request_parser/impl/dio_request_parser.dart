@@ -5,6 +5,9 @@ import '../model/request_model.dart';
 import '../request_parser.dart';
 import 'package:dio/dio.dart';
 
+/// FnPanel
+///
+/// dio Request解析实现
 class DioRequestParser implements RequestParser {
   @override
   RequestModel parser(dynamic request) {

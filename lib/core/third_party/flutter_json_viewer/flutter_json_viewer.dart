@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fn_panel/core/utils/fn_print_utils.dart';
 
+/// FnPanel
+///
+/// JsonViewer，基于https://github.com/mayankkushal/flutter_json_viewer修改
 class FnJsonViewer extends StatefulWidget {
   final dynamic jsonObj;
   FnJsonViewer(this.jsonObj);

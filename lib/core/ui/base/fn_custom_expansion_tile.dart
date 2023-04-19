@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// FnPanel
+///
+/// 自定义展开widget
 class FnCustomExpansionTitle extends StatefulWidget {
   final Widget title;
   final List<Widget> children;
