@@ -1,5 +1,7 @@
 # FnPanel
 
+[![Pub](https://img.shields.io/pub/v/dio.svg)](https://pub.flutter-io.cn/packages/fn_panel)
+
 ## 主要功能
 * 设计参照Chome Network调试面板
 * 支持展示请求头、响应头、请求头、响应体、请求时间等
@@ -9,7 +11,10 @@
 * 配置简单，使用方便，侵入性低
 
 ## 安装
-TODO
+```yaml
+dependencies:
+  fn_panel: ^0.0.1
+```
 
 ## 使用
 【必须】绑定Dio，请在封装的请求内部绑定
