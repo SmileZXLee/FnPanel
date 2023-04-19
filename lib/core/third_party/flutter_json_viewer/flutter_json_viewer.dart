@@ -1,6 +1,5 @@
-library flutter_json_widget;
-
 import 'package:flutter/material.dart';
+import 'package:fn_panel/core/utils/fn_print_utils.dart';
 
 class FnJsonViewer extends StatefulWidget {
   final dynamic jsonObj;
@@ -149,15 +148,23 @@ class _FnJsonObjectViewerState extends State<FnJsonObjectViewer> {
     } else if (entry.value is int) {
       return Expanded(
           child: SelectableText(
-        entry.value.toString(),
-        style: TextStyle(color: Colors.teal),
-      ));
+            entry.value.toString(),
+            style: TextStyle(color: Colors.teal),
+            onTap: () {
+              FnPrintUtils.printDebug("${entry.key}: ${entry.value}");
+            },
+          )
+      );
     } else if (entry.value is String) {
       return Expanded(
           child: SelectableText(
-        '\"' + entry.value + '\"',
-        style: TextStyle(color: Colors.redAccent),
-      ));
+            '\"' + entry.value + '\"',
+            style: TextStyle(color: Colors.redAccent),
+            onTap: () {
+              FnPrintUtils.printDebug("${entry.key}: ${entry.value}");
+            },
+          )
+      );
     } else if (entry.value is bool) {
       return Expanded(
           child: Text(
@@ -167,9 +174,13 @@ class _FnJsonObjectViewerState extends State<FnJsonObjectViewer> {
     } else if (entry.value is double) {
       return Expanded(
           child: SelectableText(
-        entry.value.toString(),
-        style: TextStyle( color: Colors.teal),
-      ));
+            entry.value.toString(),
+            style: TextStyle( color: Colors.teal),
+            onTap: () {
+              FnPrintUtils.printDebug("${entry.key}: ${entry.value}");
+            },
+          )
+      );
     } else if (entry.value is List) {
       if (entry.value.isEmpty) {
         return Text(
