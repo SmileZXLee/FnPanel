@@ -73,36 +73,40 @@ class _FnBriefPanelState extends State<FnBriefPanel> {
               ],
             ),
             Expanded(
-                child: ListView.builder(
-                  itemCount: _requestList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    String title = _requestList[index].briefUrl.isNotEmpty ? _requestList[index].briefUrl : "UNKNOWN";
-                    return InkWell(
-                      onTap: () {
-                        setState(() {
-                          _selectedIndex = index;
-                        });
-                        if (widget.onSelected != null) {
-                          widget.onSelected!(_requestList[index]);
-                        }
-                      },
-                      child: Container(
-                        color: _selectedIndex == index ? Colors.blue : (index % 2 == 0 ? null : const Color(0xFFF3F3F3)),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
-                          child: Text(
-                            FnTextUtils.breakWord(title),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 12.0,
-                                color: _selectedIndex == index ? Colors.white : Colors.black
+                child: MediaQuery.removePadding(
+                  context: context,
+                  removeTop: true,
+                  child: ListView.builder(
+                    itemCount: _requestList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      String title = _requestList[index].briefUrl.isNotEmpty ? _requestList[index].briefUrl : "UNKNOWN";
+                      return InkWell(
+                        onTap: () {
+                          setState(() {
+                            _selectedIndex = index;
+                          });
+                          if (widget.onSelected != null) {
+                            widget.onSelected!(_requestList[index]);
+                          }
+                        },
+                        child: Container(
+                          color: _selectedIndex == index ? Colors.blue : (index % 2 == 0 ? null : const Color(0xFFF3F3F3)),
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
+                            child: Text(
+                              FnTextUtils.breakWord(title),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: 12.0,
+                                  color: _selectedIndex == index ? Colors.white : Colors.black
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 )
             )
           ],

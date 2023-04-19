@@ -39,7 +39,6 @@ class _FnBaseBottomPanelState extends State<FnBaseBottomPanel>
 
   @override
   Widget build(BuildContext context) {
-    final double bottomPadding = MediaQuery.of(context).padding.bottom;
     return GestureDetector(
       onTap: () {
         _controller.reverse().then((value) => Navigator.pop(context));

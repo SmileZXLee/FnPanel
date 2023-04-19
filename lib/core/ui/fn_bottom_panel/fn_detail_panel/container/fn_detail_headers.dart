@@ -24,8 +24,12 @@ class _FnDetailHeadersState extends State<FnDetailHeaders> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: ListView(
-        children: getHeaderWidgets(),
+      child: MediaQuery.removePadding(
+        context: context,
+        removeTop: true,
+        child:  ListView(
+          children: getHeaderWidgets(),
+        ),
       ),
     );
   }
@@ -98,40 +102,45 @@ class _FnDetailHeadersState extends State<FnDetailHeaders> {
       children: [
         Column(
           children: [
-            ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: headers.length,
-              shrinkWrap: true,
-              itemBuilder: (BuildContext context, int index) {
-                Map<String, String> header = headers[index];
-                return Container(
-                  padding: EdgeInsets.only(left: 15, bottom: 5),
-                  child: SelectableText.rich(
-                    TextSpan(
-                      text: '${header['title']}: ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 12.0,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: '${header['desc']}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            color: _getDescColor(header['title'].toString(), header['desc'].toString()),
-                            fontSize: 12.0,
-                          ),
+            MediaQuery.removePadding(
+              context: context,
+              removeTop: true,
+              removeBottom: true,
+              child: ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: headers.length,
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index) {
+                  Map<String, String> header = headers[index];
+                  return Container(
+                    padding: EdgeInsets.only(left: 15, bottom: 5),
+                    child: SelectableText.rich(
+                      TextSpan(
+                        text: '${header['title']}: ',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 12.0,
                         ),
-                      ],
+                        children: [
+                          TextSpan(
+                            text: '${header['desc']}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              color: _getDescColor(header['title'].toString(), header['desc'].toString()),
+                              fontSize: 12.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      onTap: () {
+                        FnPrintUtils.printDebug("${header['title']}: ${header['desc']}");
+                      },
                     ),
-                    onTap: () {
-                      FnPrintUtils.printDebug("${header['title']}: ${header['desc']}");
-                    },
-                  ),
-                );
-              },
-            ),
+                  );
+                },
+              ),
+            )
           ],
         )
       ],

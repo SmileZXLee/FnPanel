@@ -16,9 +16,10 @@ class FnBottomPanel extends Object {
 
     showDialog(
       context: context,
+      useSafeArea: false,
       builder: (BuildContext context) {
         return FnBaseBottomPanel(
-          child: FnBottomContentPanel()
+            child: FnBottomContentPanel()
         );
       },
     );
@@ -53,8 +54,14 @@ class _FnBottomContentPanelState extends State<FnBottomContentPanel> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    FnPanel.requestUpdateCallback = null;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    double panelHeight = MediaQuery.of(context).size.height / 2.2;
+    double panelHeight = MediaQuery.of(context).size.height / 2.2 + MediaQuery.of(context).padding.bottom;
     return _requestList.isNotEmpty ? Column(
       mainAxisSize: MainAxisSize.max,
       children: [
@@ -102,12 +109,6 @@ class _FnBottomContentPanelState extends State<FnBottomContentPanel> {
       height: panelHeight,
       child: FnEmptyText(text: "No Requests"),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    FnPanel.requestUpdateCallback = null;
   }
 
 }
