@@ -1,7 +1,7 @@
 # FnPanel
 
 [![Pub](https://img.shields.io/pub/v/fn_panel.svg)](https://pub.flutter-io.cn/packages/fn_panel)
-[![license](https://img.shields.io/github/license/SmileZXLee/fn_panel)](https://en.wikipedia.org/wiki/MIT_License)
+[![license](https://img.shields.io/github/license/SmileZXLee/FnPanel)](https://en.wikipedia.org/wiki/MIT_License)
 
 ## 主要功能
 * 设计参照Chome Network调试面板
