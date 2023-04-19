@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 
 import 'core/fn_panel.dart';
 import 'core/ui/fn_bottom_panel/fn_bottom_panel.dart';
+import 'new_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -65,9 +66,11 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
 
-    FnBottomPanel.show(context);
+    // FnBottomPanel.show(context);
 
-    Future.delayed(Duration(seconds: 1), () async{
+    FnBottomPanel.addGlobalButton(context);
+
+    Future.delayed(Duration(seconds: 5), () async{
       // 创建一个dio实例
       Dio dio = Dio();
 
@@ -78,6 +81,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
       // 打印响应数据
       print(response.data);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => NewPage()),
+      );
     });
 
   }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fn_panel/core/notification/fn_detail_changed_notification.dart';
 import 'package:fn_panel/core/parser/request_parser/model/request_model.dart';
 import 'package:fn_panel/core/parser/response_parser/model/response_model.dart';
 import 'package:fn_panel/core/ui/base/fn_custom_expansion_tile.dart';
@@ -95,7 +94,7 @@ class _FnDetailHeadersState extends State<FnDetailHeaders> {
       title: Text(
         title,
         style: TextStyle(
-          fontSize: 12.0,
+          fontSize: 13.0,
           fontWeight: FontWeight.bold
         ),
       ),
@@ -120,7 +119,7 @@ class _FnDetailHeadersState extends State<FnDetailHeaders> {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
-                          fontSize: 12.0,
+                          fontSize: 13.0,
                         ),
                         children: [
                           TextSpan(
@@ -128,7 +127,7 @@ class _FnDetailHeadersState extends State<FnDetailHeaders> {
                             style: TextStyle(
                               fontWeight: FontWeight.normal,
                               color: _getDescColor(header['title'].toString(), header['desc'].toString()),
-                              fontSize: 12.0,
+                              fontSize: 13.0,
                             ),
                           ),
                         ],

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:fn_panel/core/parser/request_parser/model/request_model.dart';
 import 'package:fn_panel/core/parser/response_parser/model/response_model.dart';
+import 'package:fn_panel/core/ui/base/fn_empty_text.dart';
 import 'package:fn_panel/core/utils/fn_time_utils.dart';
 
 class FnDetailTiming extends StatefulWidget {
@@ -26,15 +27,19 @@ class _FnDetailTimingState extends State<FnDetailTiming> {
     ResponseModel? responseModel = requestModel?.response;
     return Container(
       padding: const EdgeInsets.all(10),
-      child: requestModel != null ? Column(
-        children: responseModel != null ? [
-          getItem("Request Started", FnTimeUtils.formatTimestamp(requestModel.timestamp)),
-          getItem("Request Finished", FnTimeUtils.formatTimestamp(responseModel.timestamp)),
-          getItem("Request Duration", FnTimeUtils.formatMilliseconds(responseModel.timestamp - requestModel.timestamp)),
-        ] : [
-          getItem("Request Started", requestModel.timestamp.toString()),
-        ],
-      ) : Text("无"),
+      child: requestModel != null ? SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: responseModel != null ? [
+            getItem("Request Started", FnTimeUtils.formatTimestamp(requestModel.timestamp)),
+            getItem("Request Finished", FnTimeUtils.formatTimestamp(responseModel.timestamp)),
+            getItem("Request Duration", FnTimeUtils.formatMilliseconds(responseModel.timestamp - requestModel.timestamp)),
+          ] : [
+            getItem("Request Started", requestModel.timestamp.toString()),
+          ],
+        ),
+      ) : FnEmptyText(text: "No Timing"),
     );
   }
 
@@ -46,14 +51,14 @@ class _FnDetailTimingState extends State<FnDetailTiming> {
           Text(
             "$title: ",
             style: const TextStyle(
-              fontSize: 12.0,
+              fontSize: 13.0,
               fontWeight: FontWeight.bold
             ),
           ),
           Text(
             value,
             style: const TextStyle(
-              fontSize: 11.0
+              fontSize: 12.0
             ),
           )
         ],

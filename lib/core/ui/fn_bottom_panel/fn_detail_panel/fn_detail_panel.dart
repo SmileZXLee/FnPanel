@@ -35,10 +35,11 @@ class _FnDetailPanelState extends State<FnDetailPanel> {
           children: [
             GestureDetector(
               child: Container(
-                padding: EdgeInsets.all(5),
+                padding: EdgeInsets.all(4),
                 child: Icon(
                   Icons.close,
-                  size: 14.0,
+                  size: 17.0,
+                  color: Colors.black54,
                 ),
               ),
               onTap: () {
@@ -67,7 +68,7 @@ class _FnDetailPanelState extends State<FnDetailPanel> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          fontSize: 11,
+                          fontSize: 11.5,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -79,8 +80,8 @@ class _FnDetailPanelState extends State<FnDetailPanel> {
               visible: widget.requestModel != null,
               child: PopupMenuButton<String>(
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 5.0),
-                  child: Icon(Icons.more_vert, size: 14),
+                  padding: EdgeInsets.symmetric(horizontal: 2.0),
+                  child: Icon(Icons.more_vert, size: 16.0, color: Colors.black54),
                 ),
                 padding: EdgeInsets.zero,
                 onSelected: (String value) {

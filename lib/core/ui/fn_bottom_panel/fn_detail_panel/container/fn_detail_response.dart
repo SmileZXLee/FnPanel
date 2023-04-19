@@ -37,7 +37,7 @@ class _FnDetailResponseState extends State<FnDetailResponse> {
               Text(
                 "Response Payload",
                 style: TextStyle(
-                  fontSize: 12.0,
+                  fontSize: 13.0,
                   fontWeight: FontWeight.bold
                 ),
               ),
@@ -46,7 +46,7 @@ class _FnDetailResponseState extends State<FnDetailResponse> {
                 child: Text(
                   _isParsed ? "view parsed" : "view source",
                   style: TextStyle(
-                    fontSize: 12.0,
+                    fontSize: 13.0,
                     color: Colors.black87
                   ),
                 ),
@@ -65,7 +65,7 @@ class _FnDetailResponseState extends State<FnDetailResponse> {
               SelectableText(
                 json.encode(responseModel.data),
                 style: TextStyle(
-                  fontSize: 12.0,
+                  fontSize: 13.0,
                   color: Colors.black,
                 ),
                 onTap: () {

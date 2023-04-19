@@ -15,12 +15,14 @@ class FnBriefPanel extends StatefulWidget {
 class _FnBriefPanelState extends State<FnBriefPanel> {
   int _selectedIndex = -1;
   List<RequestModel> _requestList = [];
+  final _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     if (widget.requestList != null) {
       _requestList = widget.requestList!;
+      _scrollToBottom();
     }
   }
 
@@ -49,7 +51,7 @@ class _FnBriefPanelState extends State<FnBriefPanel> {
                         Text(
                           "Name",
                           style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 13.0,
                               fontWeight: FontWeight.bold
                           ),
                         ),
@@ -59,10 +61,10 @@ class _FnBriefPanelState extends State<FnBriefPanel> {
                             child: Icon(
                               Icons.not_interested,
                               color: Colors.black54,
-                              size: 13,
+                              size: 15.0,
                             ),
                             onTap: () {
-                              doClearAll();
+                              _doClearAll();
                             },
                           ),
                         )
@@ -77,6 +79,7 @@ class _FnBriefPanelState extends State<FnBriefPanel> {
                   context: context,
                   removeTop: true,
                   child: ListView.builder(
+                    controller: _scrollController,
                     itemCount: _requestList.length,
                     itemBuilder: (BuildContext context, int index) {
                       String title = _requestList[index].briefUrl.isNotEmpty ? _requestList[index].briefUrl : "UNKNOWN";
@@ -92,13 +95,13 @@ class _FnBriefPanelState extends State<FnBriefPanel> {
                         child: Container(
                           color: _selectedIndex == index ? Colors.blue : (index % 2 == 0 ? null : const Color(0xFFF3F3F3)),
                           child: Padding(
-                            padding: EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
+                            padding: EdgeInsets.only(left: 2, right: 2, top: 5, bottom: 5),
                             child: Text(
                               FnTextUtils.breakWord(title),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                  fontSize: 12.0,
+                                  fontSize: 13.0,
                                   color: _selectedIndex == index ? Colors.white : Colors.black
                               ),
                             ),
@@ -115,7 +118,7 @@ class _FnBriefPanelState extends State<FnBriefPanel> {
     );
   }
 
-  void doClearAll() {
+  void _doClearAll() {
     CommonData.requestList = [];
     CommonData.requestingMap = {};
     setState(() {
@@ -124,6 +127,16 @@ class _FnBriefPanelState extends State<FnBriefPanel> {
     if (widget.onCleared != null) {
       widget.onCleared!();
     }
+  }
+
+  void _scrollToBottom() {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: Duration(milliseconds: 10),
+        curve: Curves.linear,
+      );
+    });
   }
 
 }

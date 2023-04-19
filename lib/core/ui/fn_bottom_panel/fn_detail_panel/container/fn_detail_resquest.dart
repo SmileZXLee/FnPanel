@@ -56,7 +56,7 @@ class _FnDetailRequestState extends State<FnDetailRequest> {
         SelectableText(
           Uri(queryParameters: queryParameters).query,
           style: TextStyle(
-              fontSize: 12.0,
+              fontSize: 13.0,
               color: Colors.black
           ),
           onTap: () {
@@ -75,7 +75,7 @@ class _FnDetailRequestState extends State<FnDetailRequest> {
         SelectableText(
           json.encode(requestModel.data),
           style: TextStyle(
-              fontSize: 12.0,
+              fontSize: 13.0,
               color: Colors.black
           ),
           onTap: () {
@@ -96,7 +96,7 @@ class _FnDetailRequestState extends State<FnDetailRequest> {
               Text(
                 type == RequestType.body ? "Request Payload" : "Query String Params",
                 style: TextStyle(
-                    fontSize: 12.0,
+                    fontSize: 13.0,
                     fontWeight: FontWeight.bold
                 ),
               ),
@@ -105,7 +105,7 @@ class _FnDetailRequestState extends State<FnDetailRequest> {
                 child: Text(
                   (type == RequestType.body ? _isBodyParsed : _isQueryParsed) ? "view parsed" : "view source",
                   style: TextStyle(
-                      fontSize: 12.0,
+                      fontSize: 13.0,
                       color: Colors.black87
                   ),
                 ),

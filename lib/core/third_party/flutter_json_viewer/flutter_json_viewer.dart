@@ -14,7 +14,7 @@ class _FnJsonViewerState extends State<FnJsonViewer> {
   Widget build(BuildContext context) {
     return DefaultTextStyle(
       style: TextStyle(
-        fontSize: 12.0,
+        fontSize: 14.0,
       ),
       child: getContentWidget(widget.jsonObj),
     );

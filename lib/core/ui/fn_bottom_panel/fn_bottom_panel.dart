@@ -3,17 +3,18 @@ import 'package:fn_panel/core/data/common_data.dart';
 import 'package:fn_panel/core/fn_panel.dart';
 import 'package:fn_panel/core/parser/request_parser/model/request_model.dart';
 import 'package:fn_panel/core/ui/base/fn_empty_text.dart';
+import 'package:fn_panel/core/ui/fn_global_button/fn_global_button.dart';
 
 import '../base/fn_base_bottom_panel.dart';
 import 'fn_brief_panel/fn_brief_panel.dart';
 import 'fn_detail_panel/fn_detail_panel.dart';
 
 class FnBottomPanel extends Object {
-  static BuildContext? currentContext;
+  static BuildContext? _currentContext;
+
+  static OverlayEntry? _currentGlobalButton = null;
 
   static void show(BuildContext context,{String message = "loading..."}) {
-    currentContext = context;
-
     showDialog(
       context: context,
       useSafeArea: false,
@@ -23,10 +24,35 @@ class FnBottomPanel extends Object {
         );
       },
     );
+    _currentContext = context;
   }
 
   static void dismiss(){
-    Navigator.pop(currentContext!);
+    if (_currentContext != null) {
+      Navigator.pop(_currentContext!);
+      _currentContext = null;
+    }
+  }
+
+  static void addGlobalButton(BuildContext context) {
+    if (_currentGlobalButton == null) {
+      final overlayState = Overlay.of(context)!;
+      _currentGlobalButton = OverlayEntry(
+        builder: (BuildContext context) => FnGlobalButton(
+          onPressed: () {
+            show(context);
+          },
+          icon: Icons.add,
+        ),
+      );
+      overlayState.insert(_currentGlobalButton!);
+    }
+  }
+
+  static void removeGlobalButton(BuildContext context) {
+    if (_currentGlobalButton != null) {
+      _currentGlobalButton!.remove();
+    }
   }
 }
 
