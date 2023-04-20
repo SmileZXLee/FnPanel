@@ -35,6 +35,19 @@ FnPanel.setGlobalButton(context);
 FnPanel.showPanel(context);
 ```
 
+【可选】全局配置
+```dart
+// 修改全局Button距离bottom 100
+FnPanel.setConfig(
+  FnConfig(globalButtonConfig: FnGlobalButtonConfig(bottom: 100))
+);
+
+// 设置FnPanel在Debug和Release环境下均启用，默认为Level.debug，即只有Debug环境下启用
+FnPanel.setConfig(
+  FnConfig(level: Level.release)
+);
+```
+
 ## 预览
 |                           操作演示                           |                       请求详情-Headers                       |                      请求详情-Response                       |
 | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
