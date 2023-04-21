@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fn_panel/fn_panel.dart';
-
 import 'package:fn_panel_example/request_test_page.dart';
+
+import 'fn_panel/fn_panel.dart';
 
 void main() {
   runApp(const MyApp());

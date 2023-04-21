@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:fn_panel/fn_panel.dart';
+
+import 'fn_panel/fn_panel.dart';
 
 class RequestTestPage extends StatefulWidget {
   const RequestTestPage({Key? key}) : super(key: key);
