@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'Fn_Panel已加载，可发送请求测试',
+              'FnPanel已加载，可发送请求测试',
             ),
             SizedBox(height: 12),
             ElevatedButton(
