@@ -15,10 +15,16 @@
 ## 安装
 ```yaml
 dependencies:
-  fn_panel: ^0.0.1
+  fn_panel: ^0.0.3
 ```
 
 ## 使用
+
+导入`fn_panel`
+```dart
+import 'package:fn_panel/fn_panel.dart';
+```
+
 【必须】绑定Dio，请在封装的请求内部绑定
 ```dart
 Dio dio = Dio();
