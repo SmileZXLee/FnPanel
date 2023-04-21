@@ -119,6 +119,7 @@ class _RequestTestPageState extends State<RequestTestPage> {
 
       try {
         Dio dio = Dio();
+        //
         FnPanel.setDio(dio);
         final response = await dio.request(
           _urlController.text,

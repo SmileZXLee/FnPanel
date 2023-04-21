@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import '../../../parser/export_parser/export_parser.dart';
-import '../../../parser/request_parser/model/request_model.dart';
+import '../export_parser.dart';
+import '../../request_parser/model/request_model.dart';
 
 /// FnPanel
 ///
@@ -10,7 +10,18 @@ class FetchExportParser extends ExportParser {
   @override
   String parser(RequestModel requestModel) {
     final headers = requestModel.headers.entries.map((e) => '    "${e.key}": "${e.value}",').join('\n');
-    final body = requestModel.data != null ? '    body: "${json.encode(requestModel.data)}",' : '';
+    FormDataModel? formDataModel = requestModel.fromData;
+
+    String bodyStr = "";
+    if (formDataModel != null) {
+      bodyStr = formDataModel.asString;
+    } else {
+      try {
+        bodyStr = requestModel.data != null ? json.encode(requestModel.data) : "";
+      } catch (_) {}
+    }
+
+    final body = bodyStr.isNotEmpty ? '    body: "$bodyStr",' : '';
 
     return '''fetch("${requestModel.url}", {
     method: "${requestModel.method}",

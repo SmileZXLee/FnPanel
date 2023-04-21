@@ -1,4 +1,4 @@
-import '../../parser/request_parser/model/request_model.dart';
+import '../request_parser/model/request_model.dart';
 
 /// FnPanel
 ///

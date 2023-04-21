@@ -1,4 +1,18 @@
-import '../../../parser/response_parser/model/response_model.dart';
+import 'package:dio/dio.dart';
+
+import '../../response_parser/model/response_model.dart';
+
+/// FnPanel
+///
+/// FormData包装类
+class FormDataModel extends Object {
+  List<Map<String, String>> fields;
+  List<MapEntry<String, MultipartFile>> files;
+  String boundary;
+  String asString;
+
+  FormDataModel(this.fields, this.files, this.boundary, this.asString);
+}
 
 /// FnPanel
 ///
@@ -22,6 +36,9 @@ class RequestModel extends Object{
   /// Data
   dynamic data;
 
+  /// FromData
+  FormDataModel? fromData;
+
   /// Request Headers
   ResponseModel? response;
 
@@ -31,5 +48,5 @@ class RequestModel extends Object{
   /// timestamp
   int timestamp;
 
-  RequestModel(this.url, this.briefUrl, this.method, this.statusCode, this.headers, this.data, this.response, this.rawRequest, this.timestamp);
+  RequestModel(this.url, this.briefUrl, this.method, this.statusCode, this.headers, this.data, this.fromData, this.response, this.rawRequest, this.timestamp);
 }

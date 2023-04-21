@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import '../../../parser/export_parser/export_parser.dart';
-import '../../../parser/request_parser/model/request_model.dart';
+import '../export_parser.dart';
+import '../../request_parser/model/request_model.dart';
 
 /// FnPanel
 ///
@@ -9,15 +9,26 @@ import '../../../parser/request_parser/model/request_model.dart';
 class CurlExportParser extends ExportParser {
   @override
   String parser(RequestModel requestModel) {
-    StringBuffer buffer = new StringBuffer();
+    StringBuffer buffer = StringBuffer();
     buffer.write("curl -X ${requestModel.method} '${requestModel.url}'");
 
     requestModel.headers.forEach((key, value) {
       buffer.write(" -H '$key: $value'");
     });
 
-    if (requestModel.data != null) {
-      buffer.write(" -d '${json.encode(requestModel.data)}'");
+    FormDataModel? formDataModel = requestModel.fromData;
+    dynamic body = requestModel.data;
+    String bodyStr = "";
+    if (formDataModel != null) {
+      bodyStr = formDataModel.asString;
+    } else {
+      try {
+        bodyStr = body != null ? json.encode(body) : "";
+      } catch (_) {}
+    }
+
+    if (bodyStr.isNotEmpty) {
+      buffer.write(" -d '$bodyStr'");
     }
 
     return buffer.toString();

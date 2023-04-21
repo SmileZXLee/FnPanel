@@ -37,7 +37,7 @@ class _FnDetailTimingState extends State<FnDetailTiming> {
             getItem("Request Finished", FnTimeUtils.formatTimestamp(responseModel.timestamp)),
             getItem("Request Duration", FnTimeUtils.formatMilliseconds(responseModel.timestamp - requestModel.timestamp)),
           ] : [
-            getItem("Request Started", requestModel.timestamp.toString()),
+            getItem("Request Started", FnTimeUtils.formatTimestamp(requestModel.timestamp)),
           ],
         ),
       ) : FnEmptyText(text: "No Timing"),

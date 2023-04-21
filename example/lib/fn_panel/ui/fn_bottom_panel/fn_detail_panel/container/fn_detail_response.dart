@@ -29,6 +29,11 @@ class _FnDetailResponseState extends State<FnDetailResponse> {
   @override
   Widget build(BuildContext context) {
     ResponseModel? responseModel = widget.requestModel?.response;
+    String bodyStr = "";
+    try {
+      bodyStr = responseModel != null ? json.encode(responseModel.data) : "";
+    } catch (_) {}
+
     return responseModel != null ? SingleChildScrollView(
       scrollDirection: Axis.vertical, // 设置滚动方向为垂直方向
       child: Container(
@@ -64,16 +69,16 @@ class _FnDetailResponseState extends State<FnDetailResponse> {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10.0),
               child: _isParsed ? (responseModel.data is Map ? FnJsonViewer(responseModel.data) : FnEmptyText(text: "No Preview")) :
-              SelectableText(
-                json.encode(responseModel.data),
+              bodyStr.isNotEmpty ? SelectableText(
+                bodyStr,
                 style: TextStyle(
                   fontSize: 13.0,
                   color: Colors.black,
                 ),
                 onTap: () {
-                  FnPrintUtils.print(json.encode(responseModel.data));
+                  FnPrintUtils.printMsg(json.encode(responseModel.data));
                 },
-              ),
+              ) : FnEmptyText(text: "No Source")
             )
           ],
         ),

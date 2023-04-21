@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../data/common_data.dart';
 import '../../parser/request_parser/model/request_model.dart';
 import '../../ui/base/fn_empty_text.dart';
-import '../../ui/fn_global_button/fn_global_button.dart';
+import '../fn_global_button/fn_global_button.dart';
 
 import '../base/fn_base_bottom_panel.dart';
 import 'fn_brief_panel/fn_brief_panel.dart';
@@ -12,7 +12,7 @@ class FnBottomPanel extends Object {
   static bool _isAddedGlobalButton = false;
 
   static BuildContext? _currentDialogContext;
-  static BuildContext? _currentGlobalButtonContext;
+  static OverlayState? _currentOverlayState;
 
   static OverlayEntry? _currentGlobalButton = null;
 
@@ -29,18 +29,18 @@ class FnBottomPanel extends Object {
         }
 
         await showDialog(
-        context: context,
-        useSafeArea: false,
-        builder: (BuildContext context) {
-          return FnBaseBottomPanel(
-              child: FnBottomContentPanel()
-          );
-        },
+          context: context,
+          useSafeArea: false,
+          builder: (BuildContext context) {
+            return FnBaseBottomPanel(
+                child: FnBottomContentPanel()
+            );
+          },
         );
 
         if (_isAddedGlobalButton) {
           Future.delayed(Duration(milliseconds: 100), () {
-            addGlobalButton(_currentGlobalButtonContext);
+            addGlobalButton(context);
           });
         }
         _currentDialogContext = null;
@@ -67,9 +67,16 @@ class FnBottomPanel extends Object {
     Future.delayed(Duration(milliseconds: 10), () {
       if (_currentGlobalButton == null && context != null) {
         _isAddedGlobalButton = true;
-        _currentGlobalButtonContext = context;
-        final overlayState = Overlay.of(context)!;
+
+        OverlayState overlayState;
+        if (_currentOverlayState == null) {
+          overlayState = Overlay.of(context)!;
+          _currentOverlayState = overlayState;
+        } else {
+          overlayState = _currentOverlayState!;
+        }
         _currentGlobalButton = OverlayEntry(
+          maintainState: true,
           builder: (BuildContext context) => FnGlobalButton(
               onPressed: () {
                 show(context);

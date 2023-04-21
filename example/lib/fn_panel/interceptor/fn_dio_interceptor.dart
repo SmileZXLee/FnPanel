@@ -14,44 +14,42 @@ import '../parser/response_parser/response_parser.dart';
 class FnDioInterceptor extends InterceptorsWrapper {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    CommonData.requestingMap[options.hashCode] = CommonData.requestList.length;
-    RequestParser requestParser = DioRequestParser();
-    RequestModel requestModel = requestParser.parser(options);
-    CommonData.requestList.add(requestModel);
-
-    _updateRequest();
-
     super.onRequest(options, handler);
+
+    CommonData.requestingMap[options.hashCode] = CommonData.requestList.length;
+    DioRequestParser().parser(options).then((RequestModel requestModel) {
+      CommonData.requestList.add(requestModel);
+      _updateRequest();
+    });
+
   }
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    ResponseParser responseParser = DioResponseParser();
-    ResponseModel responseModel = responseParser.parser(response);
-    int? requestIndex = CommonData.requestingMap[response.requestOptions.hashCode];
-    if (requestIndex != null) {
-      CommonData.requestList[requestIndex].response = responseModel;
-      CommonData.requestingMap.remove(response.requestOptions.hashCode);
-    }
-
-    _updateRequest();
-
     super.onResponse(response, handler);
+
+    DioResponseParser().parser(response).then((ResponseModel responseModel) {
+      int? requestIndex = CommonData.requestingMap[response.requestOptions.hashCode];
+      if (requestIndex != null) {
+        CommonData.requestList[requestIndex].response = responseModel;
+        CommonData.requestingMap.remove(response.requestOptions.hashCode);
+      }
+      _updateRequest();
+    });
   }
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
-    ResponseParser responseParser = DioResponseParser();
-    ResponseModel responseModel = responseParser.parser(err.response);
+    super.onError(err, handler);
+
+    DioResponseParser().parser(err.response).then((ResponseModel responseModel) {
     int? requestIndex = CommonData.requestingMap[err.requestOptions.hashCode];
-    if (requestIndex != null) {
+      if (requestIndex != null) {
       CommonData.requestList[requestIndex].response = responseModel;
       CommonData.requestingMap.remove(err.requestOptions.hashCode);
-    }
-
-    _updateRequest();
-
-    super.onError(err, handler);
+      }
+      _updateRequest();
+    });
   }
 
   void _updateRequest() {

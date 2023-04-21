@@ -20,6 +20,7 @@ class _FnEmptyTextState extends State<FnEmptyText> {
       child: Center(
         child: Text(
           widget.text,
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 22.0,
             fontWeight: FontWeight.bold

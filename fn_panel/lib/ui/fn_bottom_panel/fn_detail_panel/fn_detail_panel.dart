@@ -96,7 +96,7 @@ class _FnDetailPanelState extends State<FnDetailPanel> {
                     CurlExportParser exportParser = CurlExportParser();
                     String result = exportParser.parser(widget.requestModel!);
                     Clipboard.setData(ClipboardData(text: result));
-                    FnPrintUtils.print(result);
+                    FnPrintUtils.printMsg(result);
                   }
                 },
                 itemBuilder: (BuildContext context) {

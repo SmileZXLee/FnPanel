@@ -154,7 +154,7 @@ class _FnJsonObjectViewerState extends State<FnJsonObjectViewer> {
             entry.value.toString(),
             style: TextStyle(color: Colors.teal),
             onTap: () {
-              FnPrintUtils.print("${entry.key}: ${entry.value}");
+              FnPrintUtils.printMsg("${entry.key}: ${entry.value}");
             },
           )
       );
@@ -164,7 +164,7 @@ class _FnJsonObjectViewerState extends State<FnJsonObjectViewer> {
             '\"' + entry.value + '\"',
             style: TextStyle(color: Colors.redAccent),
             onTap: () {
-              FnPrintUtils.print("${entry.key}: ${entry.value}");
+              FnPrintUtils.printMsg("${entry.key}: ${entry.value}");
             },
           )
       );
@@ -180,7 +180,7 @@ class _FnJsonObjectViewerState extends State<FnJsonObjectViewer> {
             entry.value.toString(),
             style: TextStyle( color: Colors.teal),
             onTap: () {
-              FnPrintUtils.print("${entry.key}: ${entry.value}");
+              FnPrintUtils.printMsg("${entry.key}: ${entry.value}");
             },
           )
       );
