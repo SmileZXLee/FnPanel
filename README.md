@@ -15,7 +15,7 @@
 ## 安装
 ```yaml
 dependencies:
-  fn_panel: ^0.0.3
+  fn_panel: ^0.0.4
 ```
 
 ## 使用
