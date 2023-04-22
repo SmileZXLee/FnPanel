@@ -13,8 +13,16 @@ class DioRequestParser implements RequestParser {
   @override
   Future<RequestModel> parser(dynamic request) async{
     RequestOptions dioRequest  = request as RequestOptions;
-    String path = dioRequest.path;
-    String briefUrl = dioRequest.path.isEmpty ? "" : path.substring(path.lastIndexOf('/') + 1);
+    String url = dioRequest.path;
+    Uri uri = Uri.parse(url);
+    String briefUrl = dioRequest.path.isEmpty ? "" : url.substring(url.lastIndexOf('/') + 1);
+    String pathWithQuery = dioRequest.path.isEmpty ? "" : url.replaceFirst(uri.origin, "");
+    if (briefUrl.isEmpty || briefUrl == "/") {
+      briefUrl = uri.host;
+    }
+    if (pathWithQuery.isEmpty || pathWithQuery == "/") {
+      pathWithQuery = uri.host;
+    }
     dynamic body = dioRequest.data;
     FormDataModel? formDataModel;
     if (body is FormData) {
@@ -31,7 +39,8 @@ class DioRequestParser implements RequestParser {
       );
     }
     RequestModel requestModel = RequestModel(
-      dioRequest.path,
+      url,
+      pathWithQuery,
       briefUrl,
       dioRequest.method,
       -1,

@@ -24,7 +24,6 @@ class _RequestTestPageState extends State<RequestTestPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _urlController.text = "https://api.z-notify.zxlee.cn/v1/public/versions/8292724618483712000/1?is_test=1&qa=abc";
     _headerController.text = '{"testHeader": 123}';

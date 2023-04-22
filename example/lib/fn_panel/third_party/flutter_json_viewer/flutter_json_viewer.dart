@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../utils/fn_print_utils.dart';
+import '../../utils/fn_text_utils.dart';
 
 /// FnPanel
 ///
@@ -188,13 +189,13 @@ class _FnJsonObjectViewerState extends State<FnJsonObjectViewer> {
       if (entry.value.isEmpty) {
         return Text(
           'Array[0]',
-          style: TextStyle(color: Colors.grey),
+          style: TextStyle(color: Colors.black87),
         );
       } else {
         return InkWell(
             child: Text(
               'Array<${getTypeName(entry.value[0])}>[${entry.value.length}]',
-              style: TextStyle(color: Colors.grey),
+              style: TextStyle(color: Colors.black87),
             ),
             onTap: () {
               setState(() {
@@ -203,9 +204,26 @@ class _FnJsonObjectViewerState extends State<FnJsonObjectViewer> {
             });
       }
     }
+    return Expanded(
+        child: GestureDetector(
+          child: Text(
+            FnTextUtils.breakWord(entry.value.toString()),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+                color: Colors.black87
+            ),
+          ),
+          onTap: () {
+            setState(() {
+              openFlag[entry.key] = !(openFlag[entry.key] ?? false);
+            });
+          },
+        )
+    );
     return InkWell(
         child: Text(
-          'Object',
+          {entry.key: entry.value}.toString(),
           style: TextStyle(color: Colors.grey),
         ),
         onTap: () {
@@ -384,7 +402,7 @@ class _FnJsonArrayViewerState extends State<FnJsonArrayViewer> {
         return InkWell(
             child: Text(
               'Array<${_FnJsonObjectViewerState.getTypeName(content)}>[${content.length}]',
-              style: TextStyle(color: Colors.grey),
+              style: TextStyle(color: Colors.black87),
             ),
             onTap: () {
               setState(() {
@@ -393,15 +411,22 @@ class _FnJsonArrayViewerState extends State<FnJsonArrayViewer> {
             });
       }
     }
-    return InkWell(
-        child: Text(
-          'Object',
-          style: TextStyle(color: Colors.grey),
-        ),
-        onTap: () {
-          setState(() {
-            openFlag[index] = !(openFlag[index]);
-          });
-        });
+    return Expanded(
+        child: GestureDetector(
+          child: Text(
+            FnTextUtils.breakWord(content.toString()),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              color: Colors.black87
+            ),
+          ),
+          onTap: () {
+            setState(() {
+              openFlag[index] = !(openFlag[index]);
+            });
+          },
+        )
+    );
   }
 }

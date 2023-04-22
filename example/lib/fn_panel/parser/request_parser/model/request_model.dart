@@ -21,6 +21,9 @@ class RequestModel extends Object{
   /// URL
   String url;
 
+  /// path + query
+  String pathWithQuery;
+
   /// briefUrl
   String briefUrl;
 
@@ -48,5 +51,5 @@ class RequestModel extends Object{
   /// timestamp
   int timestamp;
 
-  RequestModel(this.url, this.briefUrl, this.method, this.statusCode, this.headers, this.data, this.fromData, this.response, this.rawRequest, this.timestamp);
+  RequestModel(this.url, this.pathWithQuery, this.briefUrl, this.method, this.statusCode, this.headers, this.data, this.fromData, this.response, this.rawRequest, this.timestamp);
 }

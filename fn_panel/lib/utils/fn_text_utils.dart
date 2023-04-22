@@ -8,11 +8,11 @@ class FnTextUtils {
     if (text.isEmpty) {
       return text;
     }
-    String breakWord = ' ';
-    text.runes.forEach((element) {
-      breakWord += String.fromCharCode(element);
-      breakWord += '\u200B';
-    });
-    return breakWord;
+    return text.replaceAll("", "\u200B");
+  }
+
+  /// 移除\u200B
+  static String removeU200B(String text) {
+    return text.replaceAll("\u200B", "");
   }
 }

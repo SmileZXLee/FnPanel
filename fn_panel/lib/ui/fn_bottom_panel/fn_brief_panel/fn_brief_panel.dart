@@ -10,7 +10,8 @@ class FnBriefPanel extends StatefulWidget {
   final List<RequestModel>? requestList;
   final Function(RequestModel)? onSelected;
   final Function()? onCleared;
-  const FnBriefPanel({Key? key, this.requestList, this.onSelected, this.onCleared}) : super(key: key);
+  final bool isExpanded;
+  const FnBriefPanel({Key? key, this.requestList, this.onSelected, this.onCleared, required this.isExpanded}) : super(key: key);
   @override
   _FnBriefPanelState createState() => _FnBriefPanelState();
 }
@@ -85,7 +86,9 @@ class _FnBriefPanelState extends State<FnBriefPanel> {
                     controller: _scrollController,
                     itemCount: _requestList.length,
                     itemBuilder: (BuildContext context, int index) {
-                      String title = _requestList[index].briefUrl.isNotEmpty ? _requestList[index].briefUrl : "UNKNOWN";
+                      RequestModel requestModel = _requestList[index];
+                      bool isError = requestModel.response != null && RegExp(r'^[45]').hasMatch(requestModel.response!.statusCode.toString());
+                      String title = widget.isExpanded ? "${requestModel.method} ${requestModel.pathWithQuery}" : _requestList[index].briefUrl;
                       return InkWell(
                         onTap: () {
                           setState(() {
@@ -96,7 +99,7 @@ class _FnBriefPanelState extends State<FnBriefPanel> {
                           }
                         },
                         child: Container(
-                          color: _selectedIndex == index ? Colors.blue : (index % 2 == 0 ? null : const Color(0xFFF3F3F3)),
+                          color: _selectedIndex == index ? (isError ? Color(0xFFF4D3D0) : Colors.blue) : (index % 2 == 0 ? null : const Color(0xFFF3F3F3)),
                           child: Padding(
                             padding: EdgeInsets.only(left: 2, right: 2, top: 5, bottom: 5),
                             child: Text(
@@ -105,7 +108,7 @@ class _FnBriefPanelState extends State<FnBriefPanel> {
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   fontSize: 13.0,
-                                  color: _selectedIndex == index ? Colors.white : Colors.black
+                                  color: isError ? Colors.red : (_selectedIndex == index ? Colors.white : Colors.black)
                               ),
                             ),
                           ),

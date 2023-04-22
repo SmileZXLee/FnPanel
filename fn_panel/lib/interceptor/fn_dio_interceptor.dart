@@ -39,15 +39,16 @@ class FnDioInterceptor extends InterceptorsWrapper {
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
     super.onError(err, handler);
-
-    DioResponseParser().parser(err.response).then((ResponseModel responseModel) {
-    int? requestIndex = CommonData.requestingMap[err.requestOptions.hashCode];
-      if (requestIndex != null) {
-      CommonData.requestList[requestIndex].response = responseModel;
-      CommonData.requestingMap.remove(err.requestOptions.hashCode);
-      }
-      _updateRequest();
-    });
+    if (err.response != null) {
+      DioResponseParser().parser(err.response).then((ResponseModel responseModel) {
+        int? requestIndex = CommonData.requestingMap[err.requestOptions.hashCode];
+        if (requestIndex != null) {
+          CommonData.requestList[requestIndex].response = responseModel;
+          CommonData.requestingMap.remove(err.requestOptions.hashCode);
+        }
+        _updateRequest();
+      });
+    }
   }
 
   void _updateRequest() {

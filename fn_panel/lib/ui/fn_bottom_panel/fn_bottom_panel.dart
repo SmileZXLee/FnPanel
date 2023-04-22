@@ -168,6 +168,7 @@ class _FnBottomContentPanelState extends State<FnBottomContentPanel> {
                         _requestList = [];
                       });
                     },
+                    isExpanded: _requestModel == null
                   ),
                 )
               ),
