@@ -19,7 +19,6 @@ class FnDioInterceptor extends InterceptorsWrapper {
       CommonData.requestList.add(requestModel);
       _updateRequest();
     });
-
   }
 
   @override

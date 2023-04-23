@@ -26,7 +26,7 @@ class DragSafeArea {
 }
 
 class _FnGlobalButtonState extends State<FnGlobalButton> {
-  final Size _buttonSize = Size(70.0, 20.0);
+  final Size _buttonSize = Size(64.0, 20.0);
   DragSafeArea _dragSafeArea = DragSafeArea(0, 0, 0, 0);
   Offset _offset = Offset.zero;
 

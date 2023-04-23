@@ -1,5 +1,5 @@
+import 'dart:async';
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 
 import '../../../utils/fn_time_utils.dart';
@@ -26,17 +26,20 @@ class DioRequestParser implements RequestParser {
     dynamic body = dioRequest.data;
     FormDataModel? formDataModel;
     if (body is FormData) {
-      FormData formData = body;
-      body = null;
+      FormData newFormData = FormData.fromMap({});
+      newFormData.fields.addAll(List.of(body.fields));
+      // newFormData.files.addAll(List.of(body.files));
       String formDataAsString = "";
       try {
-        formDataAsString = await formData.finalize().transform(utf8.decoder).join();
+        formDataAsString = await newFormData.finalize().transform(utf8.decoder).join();
       } catch (_) {}
       formDataModel = FormDataModel(
-        formData.fields.map((entry) => { entry.key: entry.value }).toList(),
-        formData.files, formData.boundary,
+        newFormData.fields.map((entry) => { entry.key: entry.value }).toList(),
+        List.of(body.files),
+        newFormData.boundary,
         formDataAsString
       );
+      body = null;
     }
     RequestModel requestModel = RequestModel(
       url,
