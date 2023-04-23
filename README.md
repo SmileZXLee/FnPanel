@@ -28,6 +28,7 @@ import 'package:fn_panel/fn_panel.dart';
 【必须】绑定Dio，请在封装的请求内部绑定
 ```dart
 Dio dio = Dio();
+// 对dio的各种配置处理
 FnPanel.setDio(dio);
 ```
 
