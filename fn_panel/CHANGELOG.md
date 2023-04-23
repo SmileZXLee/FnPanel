@@ -16,4 +16,4 @@
 * 【优化】打印Request URL时候删除零宽字符
 
 ## 0.0.5
-* 【修复】修复请求拦截FromData时因调用原请求finalize导致请求失败的问题
+* 【修复】请求拦截FromData时因调用原请求finalize导致请求失败的问题
