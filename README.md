@@ -60,4 +60,4 @@ FnPanel.setConfig(
 | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
 | <img src="https://zxlee.cn/img/fn-panle-demo1.gif" style="width:300px"/> | <img src="https://zxlee.cn/img/fn-panle-demo2.png" style="width:300px"/> | <img src="https://zxlee.cn/img/fn-panle-demo3.png" style="width:300px"/> |
 
-## 更新历史，请查阅[Release](https://github.com/SmileZXLee/ZXNavigationBar/releases)
+## 更新历史，请查阅[Release](https://github.com/SmileZXLee/FnPanel/releases)
