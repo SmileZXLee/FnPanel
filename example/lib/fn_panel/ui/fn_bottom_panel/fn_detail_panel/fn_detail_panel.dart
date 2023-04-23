@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../../parser/export_parser/impl/curl_export_parser.dart';
 
+import '../../../parser/export_parser/export_parser.dart';
+import '../../../parser/export_parser/impl/curl_export_parser.dart';
+import '../../../parser/export_parser/impl/fetch_export_parser.dart';
 import '../../../parser/request_parser/model/request_model.dart';
 import '../../../ui/fn_bottom_panel/fn_detail_panel/container/fn_detail_response.dart';
 import '../../../utils/fn_print_utils.dart';
 
 import './container/fn_detail_headers.dart';
-import './container/fn_detail_resquest.dart';
+import './container/fn_detail_request.dart';
 import './container/fn_detail_timing.dart';
 
 /// FnPanel
@@ -92,8 +94,13 @@ class _FnDetailPanelState extends State<FnDetailPanel> {
                 ),
                 padding: EdgeInsets.zero,
                 onSelected: (String value) {
+                  ExportParser? exportParser;
                   if (value == "curl") {
-                    CurlExportParser exportParser = CurlExportParser();
+                    exportParser = CurlExportParser();
+                  } else if (value == "fetch") {
+                    exportParser = FetchExportParser();
+                  }
+                  if (exportParser != null) {
                     String result = exportParser.parser(widget.requestModel!);
                     Clipboard.setData(ClipboardData(text: result));
                     FnPrintUtils.printMsg(result);
@@ -102,9 +109,14 @@ class _FnDetailPanelState extends State<FnDetailPanel> {
                 itemBuilder: (BuildContext context) {
                   return <PopupMenuEntry<String>>[
                     PopupMenuItem<String>(
-                      height: 20.0,
+                      height: 22.0,
                       value: 'curl',
                       child: Text('Copy as cURL', style: TextStyle(fontSize: 12.0),),
+                    ),
+                    PopupMenuItem<String>(
+                      height: 22.0,
+                      value: 'fetch',
+                      child: Text('Copy as fetch', style: TextStyle(fontSize: 12.0),),
                     ),
                   ];
                 },

@@ -192,16 +192,23 @@ class _FnJsonObjectViewerState extends State<FnJsonObjectViewer> {
           style: TextStyle(color: Colors.black87),
         );
       } else {
-        return InkWell(
+        return Expanded(
+          child: GestureDetector(
             child: Text(
               'Array<${getTypeName(entry.value[0])}>[${entry.value.length}]',
-              style: TextStyle(color: Colors.black87),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: Colors.black87,
+              ),
             ),
             onTap: () {
               setState(() {
                 openFlag[entry.key] = !(openFlag[entry.key] ?? false);
               });
-            });
+            }
+          )
+        );
       }
     }
     return Expanded(
@@ -370,28 +377,44 @@ class _FnJsonArrayViewerState extends State<FnJsonArrayViewer> {
       ));
     } else if (content is int) {
       return Expanded(
-          child: Text(
-        content.toString(),
-        style: TextStyle(color: Colors.teal),
-      ));
+          child: SelectableText(
+            content.toString(),
+            style: TextStyle(color: Colors.teal),
+            onTap: () {
+              FnPrintUtils.printMsg(content.toString());
+            },
+          )
+      );
     } else if (content is String) {
       return Expanded(
-          child: Text(
-        '\"' + content + '\"',
-        style: TextStyle(color: Colors.redAccent),
-      ));
+          child: SelectableText(
+            '\"' + content + '\"',
+            style: TextStyle(color: Colors.redAccent),
+            onTap: () {
+              FnPrintUtils.printMsg(content);
+            },
+          )
+      );
     } else if (content is bool) {
       return Expanded(
-          child: Text(
-        content.toString(),
-        style: TextStyle(color: Colors.purple),
-      ));
+          child: SelectableText(
+            content.toString(),
+            style: TextStyle(color: Colors.purple),
+            onTap: () {
+              FnPrintUtils.printMsg(content.toString());
+            },
+          )
+      );
     } else if (content is double) {
       return Expanded(
-          child: Text(
-        content.toString(),
-        style: TextStyle(color: Colors.teal),
-      ));
+          child: SelectableText(
+            content.toString(),
+            style: TextStyle(color: Colors.teal),
+              onTap: () {
+                FnPrintUtils.printMsg(content.toString());
+              },
+          )
+      );
     } else if (content is List) {
       if (content.isEmpty) {
         return Text(

@@ -101,7 +101,7 @@ class _FnBriefPanelState extends State<FnBriefPanel> {
                         child: Container(
                           color: _selectedIndex == index ? (isError ? Color(0xFFF4D3D0) : Colors.blue) : (index % 2 == 0 ? null : const Color(0xFFF3F3F3)),
                           child: Padding(
-                            padding: EdgeInsets.only(left: 2, right: 2, top: 5, bottom: 5),
+                            padding: EdgeInsets.only(left: 4, right: 4, top: 5, bottom: 5),
                             child: Text(
                               FnTextUtils.breakWord(title),
                               maxLines: 1,

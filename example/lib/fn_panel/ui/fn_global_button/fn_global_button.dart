@@ -95,6 +95,8 @@ class _FnGlobalButtonState extends State<FnGlobalButton> {
       child: Center(
         child: Text(
           "FN_PANEL",
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(
             decoration: TextDecoration.none,
             color: Colors.white,

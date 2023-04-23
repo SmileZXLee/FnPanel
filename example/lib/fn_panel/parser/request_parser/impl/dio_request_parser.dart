@@ -17,6 +17,7 @@ class DioRequestParser implements RequestParser {
     Uri uri = Uri.parse(url);
     String briefUrl = dioRequest.path.isEmpty ? "" : url.substring(url.lastIndexOf('/') + 1);
     String pathWithQuery = dioRequest.path.isEmpty ? "" : url.replaceFirst(uri.origin, "");
+    Map<String, dynamic> headers = Map.from(dioRequest.headers);
     if (briefUrl.isEmpty || briefUrl == "/") {
       briefUrl = uri.host;
     }
@@ -27,8 +28,22 @@ class DioRequestParser implements RequestParser {
     FormDataModel? formDataModel;
     if (body is FormData) {
       FormData newFormData = FormData.fromMap({});
-      newFormData.fields.addAll(List.of(body.fields));
-      // newFormData.files.addAll(List.of(body.files));
+      newFormData.fields.addAll(body.fields);
+      if (headers.containsKey("content-type")) {
+        headers["content-type"] = headers["content-type"].toString().replaceAll(body.boundary, newFormData.boundary);
+      }
+
+      int filesIndex = 0;
+      for (MapEntry<String, MultipartFile> originalMap in body.files) {
+        MultipartFile originalFile = originalMap.value;
+        List<MultipartFile> copiedMultipartFiles = await _copyMultipartFileForTwo(originalFile);
+        if (copiedMultipartFiles.length == 2) {
+          newFormData.files.add(MapEntry(originalMap.key, copiedMultipartFiles[0]));
+          body.files[filesIndex] = MapEntry(originalMap.key, copiedMultipartFiles[1]);
+        }
+        filesIndex ++;
+      }
+
       String formDataAsString = "";
       try {
         formDataAsString = await newFormData.finalize().transform(utf8.decoder).join();
@@ -41,13 +56,14 @@ class DioRequestParser implements RequestParser {
       );
       body = null;
     }
+
     RequestModel requestModel = RequestModel(
       url,
       pathWithQuery,
       briefUrl,
       dioRequest.method,
       -1,
-      dioRequest.headers,
+      headers,
       body,
       formDataModel,
       null,
@@ -55,5 +71,32 @@ class DioRequestParser implements RequestParser {
       FnTimeUtils.getTimestamp()
     );
     return requestModel;
+  }
+
+  Future<List<MultipartFile>> _copyMultipartFileForTwo(MultipartFile original) async {
+    final Stream<List<int>> stream = original.finalize();
+    final List<int> data = await stream.toList().then((chunks) {
+      final bytes = <int>[];
+      for (final chunk in chunks) {
+        bytes.addAll(chunk);
+      }
+      return bytes;
+    });
+
+    final newFile1 = MultipartFile.fromBytes(
+      data,
+      filename: original.filename,
+      contentType: original.contentType,
+      headers: original.headers
+    );
+
+    final newFile2 = MultipartFile.fromBytes(
+        data,
+        filename: original.filename,
+        contentType: original.contentType,
+        headers: original.headers
+    );
+
+    return [newFile1, newFile2];
   }
 }

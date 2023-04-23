@@ -12,12 +12,11 @@ import '../parser/response_parser/model/response_model.dart';
 class FnDioInterceptor extends InterceptorsWrapper {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    super.onRequest(options, handler);
-
     CommonData.requestingMap[options.hashCode] = CommonData.requestList.length;
     DioRequestParser().parser(options).then((RequestModel requestModel) {
       CommonData.requestList.add(requestModel);
       _updateRequest();
+      super.onRequest(options, handler);
     });
   }
 
