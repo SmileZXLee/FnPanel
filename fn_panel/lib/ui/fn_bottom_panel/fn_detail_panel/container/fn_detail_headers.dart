@@ -4,7 +4,6 @@ import '../../../../parser/request_parser/model/request_model.dart';
 import '../../../../parser/response_parser/model/response_model.dart';
 import '../../../../ui/base/fn_custom_expansion_tile.dart';
 import '../../../../utils/fn_print_utils.dart';
-import '../../../../utils/fn_text_utils.dart';
 
 /// FnPanel
 ///
@@ -18,7 +17,6 @@ class FnDetailHeaders extends StatefulWidget {
 }
 
 class _FnDetailHeadersState extends State<FnDetailHeaders> {
-  bool _isExpanded = false;
 
   @override
   void initState() {
@@ -27,13 +25,11 @@ class _FnDetailHeadersState extends State<FnDetailHeaders> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: MediaQuery.removePadding(
-        context: context,
-        removeTop: true,
-        child:  ListView(
-          children: getHeaderWidgets(),
-        ),
+    return MediaQuery.removePadding(
+      context: context,
+      removeTop: true,
+      child:  ListView(
+        children: getHeaderWidgets(),
       ),
     );
   }
@@ -59,7 +55,7 @@ class _FnDetailHeadersState extends State<FnDetailHeaders> {
     RequestModel? requestModel = widget.requestModel;
     ResponseModel? responseModel = requestModel?.response;
     List<Map<String, String>> commonHeaders = [
-      {"title": "Request URL", "desc": FnTextUtils.breakWord((requestModel?.url).toString())},
+      {"title": "Request URL", "desc": (requestModel?.url).toString()},
       {"title": "Request Method", "desc": (requestModel?.method).toString()}
     ];
     if (responseModel != null) {
@@ -98,7 +94,7 @@ class _FnDetailHeadersState extends State<FnDetailHeaders> {
     return FnCustomExpansionTitle(
       title: Text(
         title,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 13.0,
           fontWeight: FontWeight.bold
         ),
@@ -111,17 +107,17 @@ class _FnDetailHeadersState extends State<FnDetailHeaders> {
               removeTop: true,
               removeBottom: true,
               child: ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: headers.length,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
                   Map<String, String> header = headers[index];
                   return Container(
-                    padding: EdgeInsets.only(left: 15, bottom: 5),
+                    padding: const EdgeInsets.only(left: 15, bottom: 5),
                     child: SelectableText.rich(
                       TextSpan(
                         text: '${header['title']}: ',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                           fontSize: 13.0,
@@ -138,7 +134,7 @@ class _FnDetailHeadersState extends State<FnDetailHeaders> {
                         ],
                       ),
                       onTap: () {
-                        FnPrintUtils.printMsg("${header['title']}: ${FnTextUtils.removeU200B(header['desc'].toString())}");
+                        FnPrintUtils.printMsg("${header['title']}: ${header['desc']}");
                       },
                     ),
                   );

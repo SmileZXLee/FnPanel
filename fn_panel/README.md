@@ -42,11 +42,16 @@ FnPanel.setGlobalButton(context);
 FnPanel.showPanel(context);
 ```
 
-【可选】全局配置
+【可选】全局配置(请在`FnPanel.setGlobalButton(context)`之前配置)
 ```dart
 // 修改全局Button距离bottom 100(默认距离bottom 20，right 20)
 FnPanel.setConfig(
   FnConfig(globalButtonConfig: FnGlobalButtonConfig(bottom: 100))
+);
+
+// 修改全局Button背景色为红色(默认蓝色)
+FnPanel.setConfig(
+  FnConfig(globalButtonConfig: FnGlobalButtonConfig(color: Colors.red))
 );
 
 // 设置FnPanel在Debug和Release环境下均启用，默认为Level.debug，即只有Debug环境下启用

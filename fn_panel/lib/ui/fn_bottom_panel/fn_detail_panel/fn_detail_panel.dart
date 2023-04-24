@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../data/common_data.dart';
 import '../../../parser/export_parser/export_parser.dart';
 import '../../../parser/export_parser/impl/curl_export_parser.dart';
 import '../../../parser/export_parser/impl/fetch_export_parser.dart';
@@ -24,10 +25,11 @@ class FnDetailPanel extends StatefulWidget {
 }
 
 class _FnDetailPanelState extends State<FnDetailPanel> {
-  int _selectedIndex = 0;
+  int _selectedIndex = CommonData.requestDetailPanelTabIndex;
   final List<String> _tabs = ['Headers', 'Request', 'Response', 'Timing'];
 
   void _onTabSelected(int index) {
+    CommonData.requestDetailPanelTabIndex = index;
     setState(() {
       _selectedIndex = index;
     });
@@ -41,8 +43,8 @@ class _FnDetailPanelState extends State<FnDetailPanel> {
           children: [
             GestureDetector(
               child: Container(
-                padding: EdgeInsets.all(4),
-                child: Icon(
+                padding: const EdgeInsets.all(4),
+                child: const Icon(
                   Icons.close,
                   size: 17.0,
                   color: Colors.black54,
@@ -75,7 +77,7 @@ class _FnDetailPanelState extends State<FnDetailPanel> {
                           _tabs[i],
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 12.0,
                             fontWeight: FontWeight.bold,
                           ),
@@ -89,8 +91,8 @@ class _FnDetailPanelState extends State<FnDetailPanel> {
               visible: widget.requestModel != null,
               child: PopupMenuButton<String>(
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 2.0),
-                  child: Icon(Icons.more_vert, size: 16.0, color: Colors.black54),
+                  padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                  child: const Icon(Icons.more_vert, size: 16.0, color: Colors.black54),
                 ),
                 padding: EdgeInsets.zero,
                 onSelected: (String value) {
@@ -108,12 +110,12 @@ class _FnDetailPanelState extends State<FnDetailPanel> {
                 },
                 itemBuilder: (BuildContext context) {
                   return <PopupMenuEntry<String>>[
-                    PopupMenuItem<String>(
+                    const PopupMenuItem<String>(
                       height: 22.0,
                       value: 'curl',
                       child: Text('Copy as cURL', style: TextStyle(fontSize: 12.0),),
                     ),
-                    PopupMenuItem<String>(
+                    const PopupMenuItem<String>(
                       height: 22.0,
                       value: 'fetch',
                       child: Text('Copy as fetch', style: TextStyle(fontSize: 12.0),),

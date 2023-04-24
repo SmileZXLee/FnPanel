@@ -41,18 +41,18 @@ class _FnDetailResponseState extends State<FnDetailResponse> {
         child: FnCustomExpansionTitle(
           title: Row(
             children: [
-              Text(
+              const Text(
                 "Response Payload",
                 style: TextStyle(
                   fontSize: 13.0,
                   fontWeight: FontWeight.bold
                 ),
               ),
-              SizedBox(width: 12.0,),
+              const SizedBox(width: 12.0,),
               GestureDetector(
                 child: Text(
                   _isParsed ? "view source" : "view parsed",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 13.0,
                     color: Colors.black87
                   ),
@@ -67,22 +67,22 @@ class _FnDetailResponseState extends State<FnDetailResponse> {
           ),
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
-              child: _isParsed ? (responseModel.data is Map ? FnJsonViewer(responseModel.data) : FnEmptyText(text: "No Preview")) :
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: _isParsed ? (responseModel.data is Map ? FnJsonViewer(responseModel.data) : const FnEmptyText(text: "No Preview")) :
               bodyStr.isNotEmpty ? SelectableText(
                 bodyStr,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 13.0,
                   color: Colors.black,
                 ),
                 onTap: () {
                   FnPrintUtils.printMsg(json.encode(responseModel.data));
                 },
-              ) : FnEmptyText(text: "No Source")
+              ) : const FnEmptyText(text: "No Source")
             )
           ],
         ),
       )
-    ) : FnEmptyText(text: "No Response");
+    ) : const FnEmptyText(text: "No Response");
   }
 }

@@ -40,7 +40,7 @@ class _FnDetailTimingState extends State<FnDetailTiming> {
             getItem("Request Started", FnTimeUtils.formatTimestamp(requestModel.timestamp)),
           ],
         ),
-      ) : FnEmptyText(text: "No Timing"),
+      ) : const FnEmptyText(text: "No Timing"),
     );
   }
 

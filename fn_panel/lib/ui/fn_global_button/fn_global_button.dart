@@ -26,7 +26,8 @@ class DragSafeArea {
 }
 
 class _FnGlobalButtonState extends State<FnGlobalButton> {
-  final Size _buttonSize = Size(64.0, 20.0);
+  final Size _buttonSize = const Size(64.0, 20.0);
+  final FnGlobalButtonConfig? _config = CommonData.config?.globalButtonConfig;
   DragSafeArea _dragSafeArea = DragSafeArea(0, 0, 0, 0);
   Offset _offset = Offset.zero;
 
@@ -34,10 +35,9 @@ class _FnGlobalButtonState extends State<FnGlobalButton> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    final FnGlobalButtonConfig? config = CommonData.config?.globalButtonConfig;
 
-    double bottom = config?.bottom ?? 20.0;
-    double right = config?.right ?? 20.0;
+    double bottom = _config?.bottom ?? 20.0;
+    double right = _config?.right ?? 20.0;
 
     _dragSafeArea = DragSafeArea(
         MediaQuery.of(context).padding.top + 20,
@@ -89,10 +89,10 @@ class _FnGlobalButtonState extends State<FnGlobalButton> {
       height: _buttonSize.height,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(3.0),
-        color: Colors.blue,
+        color: _config?.color ?? Colors.blue,
       ),
 
-      child: Center(
+      child: const Center(
         child: Text(
           "FN_PANEL",
           maxLines: 1,

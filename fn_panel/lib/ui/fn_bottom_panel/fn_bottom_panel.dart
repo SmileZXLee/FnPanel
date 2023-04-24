@@ -14,7 +14,7 @@ class FnBottomPanel extends Object {
   static BuildContext? _currentDialogContext;
   static OverlayState? _currentOverlayState;
 
-  static OverlayEntry? _currentGlobalButton = null;
+  static OverlayEntry? _currentGlobalButton;
 
   /// 显示FnPanel
   ///
@@ -22,7 +22,7 @@ class FnBottomPanel extends Object {
   /// Returns void
   static void show(BuildContext context) {
     if (_currentDialogContext == null) {
-      Future.delayed(Duration(milliseconds: 10), () async{
+      Future.delayed(const Duration(milliseconds: 10), () async{
         _currentDialogContext = context;
         if (_isAddedGlobalButton) {
           _removeGlobalButton();
@@ -32,14 +32,14 @@ class FnBottomPanel extends Object {
           context: context,
           useSafeArea: false,
           builder: (BuildContext context) {
-            return FnBaseBottomPanel(
+            return const FnBaseBottomPanel(
                 child: FnBottomContentPanel()
             );
           },
         );
 
         if (_isAddedGlobalButton) {
-          Future.delayed(Duration(milliseconds: 100), () {
+          Future.delayed(const Duration(milliseconds: 100), () {
             addGlobalButton(context);
           });
         }
@@ -64,13 +64,13 @@ class FnBottomPanel extends Object {
   /// context
   /// Returns void
   static void addGlobalButton(BuildContext? context) {
-    Future.delayed(Duration(milliseconds: 10), () {
+    Future.delayed(const Duration(milliseconds: 10), () {
       if (_currentGlobalButton == null && context != null) {
         _isAddedGlobalButton = true;
 
         OverlayState overlayState;
         if (_currentOverlayState == null) {
-          overlayState = Overlay.of(context)!;
+          overlayState = Overlay.of(context);
           _currentOverlayState = overlayState;
         } else {
           overlayState = _currentOverlayState!;
@@ -124,7 +124,7 @@ class FnBottomContentPanel extends StatefulWidget {
 class _FnBottomContentPanelState extends State<FnBottomContentPanel> {
   RequestModel? _requestModel;
   List<RequestModel> _requestList = CommonData.requestList;
-
+  Key _detailPanelKey = UniqueKey();
   @override
   void initState() {
     super.initState();
@@ -148,50 +148,47 @@ class _FnBottomContentPanelState extends State<FnBottomContentPanel> {
     return _requestList.isNotEmpty ? Column(
       mainAxisSize: MainAxisSize.max,
       children: [
-        Container(
+        SizedBox(
           height: panelHeight,
           child: Row(
             children: [
               Expanded(
                 flex: 1,
-                child: Container(
-                  child: FnBriefPanel(
-                    requestList: _requestList,
-                    onSelected: (RequestModel requestModel) {
-                      setState(() {
-                        _requestModel = requestModel;
-                      });
-                    },
-                    onCleared: () {
-                      setState(() {
-                        _requestModel = null;
-                        _requestList = [];
-                      });
-                    },
-                    isExpanded: _requestModel == null
-                  ),
+                child: FnBriefPanel(
+                  requestList: _requestList,
+                  onSelected: (RequestModel requestModel) {
+                    setState(() {
+                      _detailPanelKey = UniqueKey();
+                      _requestModel = requestModel;
+                    });
+                  },
+                  onCleared: () {
+                    setState(() {
+                      _requestModel = null;
+                      _requestList = [];
+                    });
+                  },
+                  isExpanded: _requestModel == null
                 )
               ),
               Visibility(
                 visible: _requestModel != null,
                 child: Expanded(
                     flex: 3,
-                    child: Container(
-                      child: FnDetailPanel(requestModel: _requestModel, onClose: () {
-                        setState(() {
-                          _requestModel = null;
-                        });
-                      },),
-                    )
+                    child: FnDetailPanel(key: _detailPanelKey, requestModel: _requestModel, onClose: () {
+                      setState(() {
+                        _requestModel = null;
+                      });
+                    },)
                 ),
               )
             ],
           ),
         ),
       ],
-    ) : Container(
+    ) : SizedBox(
       height: panelHeight,
-      child: FnEmptyText(text: "No Requests"),
+      child: const FnEmptyText(text: "No Requests"),
     );
   }
 

@@ -44,11 +44,11 @@ class _FnDetailRequestState extends State<FnDetailRequest> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _getRequestQuery(requestModel!),
-            _getRequestBody(requestModel!),
-            _getFormDataBody(requestModel!)
+            _getRequestBody(requestModel),
+            _getFormDataBody(requestModel)
           ],
         )
-    ) : FnEmptyText(text: "No Query String Or Request Content");
+    ) : const FnEmptyText(text: "No Query String Or Request Content");
   }
 
   Widget _getRequestQuery(RequestModel requestModel){
@@ -64,7 +64,7 @@ class _FnDetailRequestState extends State<FnDetailRequest> {
         child: _isQueryParsed ? FnJsonViewer(queryParameters) :
         SelectableText(
           Uri(queryParameters: queryParameters).query,
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 13.0,
               color: Colors.black
           ),
@@ -91,7 +91,7 @@ class _FnDetailRequestState extends State<FnDetailRequest> {
         child: _isBodyParsed && requestModel.data is Map ? FnJsonViewer(requestModel.data) :
         SelectableText(
           bodyStr,
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 13.0,
               color: Colors.black
           ),
@@ -121,14 +121,14 @@ class _FnDetailRequestState extends State<FnDetailRequest> {
         ) :
         (formDataModel?.asString ?? "").isNotEmpty ? SelectableText(
           formDataModel?.asString ?? "",
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 13.0,
               color: Colors.black
           ),
           onTap: () {
             FnPrintUtils.printMsg(formDataModel?.asString ?? "");
           },
-        ) : FnEmptyText(text: "No Source")
+        ) : const FnEmptyText(text: "No Source")
     );
   }
 
@@ -145,16 +145,16 @@ class _FnDetailRequestState extends State<FnDetailRequest> {
             children: [
               Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 13.0,
                     fontWeight: FontWeight.bold
                 ),
               ),
-              SizedBox(width: 12.0,),
+              const SizedBox(width: 12.0,),
               GestureDetector(
                 child: Text(
                   isParsed ? "view source" : "view parsed",
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 13.0,
                       color: Colors.black87
                   ),
@@ -175,7 +175,7 @@ class _FnDetailRequestState extends State<FnDetailRequest> {
           ),
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: child,
             )
           ],
@@ -189,6 +189,6 @@ class _FnDetailRequestState extends State<FnDetailRequest> {
       return true;
     }
     Map<String, String> queryParameters = Uri.parse(requestModel.url).queryParameters;
-    return queryParameters.isEmpty && requestModel!.data == null && requestModel!.fromData == null;
+    return queryParameters.isEmpty && requestModel.data == null && requestModel.fromData == null;
   }
 }

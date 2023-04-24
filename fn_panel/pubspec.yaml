@@ -1,6 +1,6 @@
 name: fn_panel
 description: Chrome调试Network风格面板，用于监听、分析项目请求与响应
-version: 0.0.6
+version: 0.0.7
 homepage: https://github.com/SmileZXLee/FnPanel
 
 environment:

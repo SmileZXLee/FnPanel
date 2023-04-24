@@ -19,6 +19,9 @@ class CommonData {
   /// 未响应的请求Map，key为请求的唯一标识，value为此请求在requestList中的index
   static Map<int, int> requestingMap = {};
 
+  /// 请求详情TabIndex
+  static int requestDetailPanelTabIndex = 0;
+
   /// 全局请求按钮offset
   static Offset? globalButtonOffset;
 }

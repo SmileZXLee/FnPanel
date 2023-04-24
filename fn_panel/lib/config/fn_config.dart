@@ -1,4 +1,6 @@
 
+import 'dart:ui';
+
 enum Level {
   debug,
   release,
@@ -18,8 +20,12 @@ class FnConfig {
 class FnGlobalButtonConfig {
   /// 全局按钮与屏幕底部距离
   double? bottom;
+
   /// 全局按钮与屏幕右侧距离
   double? right;
 
-  FnGlobalButtonConfig({this.bottom, this.right});
+  /// 全局按钮颜色
+  Color? color;
+
+  FnGlobalButtonConfig({this.bottom, this.right, this.color});
 }
