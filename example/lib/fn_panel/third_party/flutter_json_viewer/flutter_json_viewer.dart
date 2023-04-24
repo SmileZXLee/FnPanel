@@ -189,7 +189,7 @@ class _FnJsonObjectViewerState extends State<FnJsonObjectViewer> {
       if (entry.value.isEmpty) {
         return const Text(
           'Array[0]',
-          style: TextStyle(color: Colors.black87),
+          style: TextStyle(color: Colors.grey),
         );
       } else {
         return Expanded(
