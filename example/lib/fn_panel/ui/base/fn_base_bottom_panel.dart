@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class FnBaseBottomPanel extends StatefulWidget {
   final Widget child;
 
-  FnBaseBottomPanel({Key? key, required this.child}) : super(key: key);
+  const FnBaseBottomPanel({Key? key, required this.child}) : super(key: key);
 
   @override
   _FnBaseBottomPanelState createState() => _FnBaseBottomPanelState();
@@ -21,11 +21,11 @@ class _FnBaseBottomPanelState extends State<FnBaseBottomPanel>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
       vsync: this,
     );
     _animation = Tween<Offset>(
-      begin: Offset(0, 1),
+      begin: const Offset(0, 1),
       end: Offset.zero,
     ).animate(CurvedAnimation(
       parent: _controller,
@@ -57,8 +57,8 @@ class _FnBaseBottomPanelState extends State<FnBaseBottomPanel>
                 onTap: () => {},
                 child: Container(
                   width: double.infinity,
-                  padding: EdgeInsets.only(top: 5),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.only(top: 5),
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(10),

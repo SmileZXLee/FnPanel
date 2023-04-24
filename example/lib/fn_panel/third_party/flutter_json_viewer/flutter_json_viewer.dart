@@ -7,7 +7,7 @@ import '../../utils/fn_text_utils.dart';
 /// JsonViewer，基于https://github.com/mayankkushal/flutter_json_viewer修改
 class FnJsonViewer extends StatefulWidget {
   final dynamic jsonObj;
-  FnJsonViewer(this.jsonObj);
+  const FnJsonViewer(this.jsonObj, {Key? key}) : super(key: key);
   @override
   _FnJsonViewerState createState() => _FnJsonViewerState();
 }
@@ -16,7 +16,7 @@ class _FnJsonViewerState extends State<FnJsonViewer> {
   @override
   Widget build(BuildContext context) {
     return DefaultTextStyle(
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 14.0,
       ),
       child: getContentWidget(widget.jsonObj),
@@ -24,9 +24,9 @@ class _FnJsonViewerState extends State<FnJsonViewer> {
   }
 
   static getContentWidget(dynamic content) {
-    if (content == null)
-      return Text('{}');
-    else if (content is List) {
+    if (content == null) {
+      return const Text('{}');
+    } else if (content is List) {
       return FnJsonArrayViewer(content, notRoot: false);
     } else {
       return FnJsonObjectViewer(content, notRoot: false);
@@ -38,20 +38,20 @@ class FnJsonObjectViewer extends StatefulWidget {
   final Map<String, dynamic> jsonObj;
   final bool notRoot;
 
-  FnJsonObjectViewer(this.jsonObj, {this.notRoot: false});
+  const FnJsonObjectViewer(this.jsonObj, {Key? key, this.notRoot = false}) : super(key: key);
 
   @override
-  _FnJsonObjectViewerState createState() => new _FnJsonObjectViewerState();
+  _FnJsonObjectViewerState createState() => _FnJsonObjectViewerState();
 }
 
 class _FnJsonObjectViewerState extends State<FnJsonObjectViewer> {
-  Map<String, bool> openFlag = Map();
+  Map<String, bool> openFlag = {};
 
   @override
   Widget build(BuildContext context) {
     if (widget.notRoot) {
       return Container(
-        padding: EdgeInsets.only(left: 14.0),
+        padding: const EdgeInsets.only(left: 14.0),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start, children: _getList()),
       );
@@ -97,7 +97,7 @@ class _FnJsonObjectViewerState extends State<FnJsonObjectViewer> {
               : Text(entry.key,
                   style: TextStyle(color: Colors.purple[900])
                 ),
-          Text(
+          const Text(
             ':',
             style: TextStyle(color: Colors.grey),
           ),
@@ -144,7 +144,7 @@ class _FnJsonObjectViewerState extends State<FnJsonObjectViewer> {
 
   getValueWidget(MapEntry entry) {
     if (entry.value == null) {
-      return Expanded(
+      return const Expanded(
           child: Text(
         'null',
         style: TextStyle(color: Colors.grey),
@@ -153,7 +153,7 @@ class _FnJsonObjectViewerState extends State<FnJsonObjectViewer> {
       return Expanded(
           child: SelectableText(
             entry.value.toString(),
-            style: TextStyle(color: Colors.teal),
+            style: const TextStyle(color: Colors.teal),
             onTap: () {
               FnPrintUtils.printMsg("${entry.key}: ${entry.value}");
             },
@@ -162,8 +162,8 @@ class _FnJsonObjectViewerState extends State<FnJsonObjectViewer> {
     } else if (entry.value is String) {
       return Expanded(
           child: SelectableText(
-            '\"' + entry.value + '\"',
-            style: TextStyle(color: Colors.redAccent),
+            '"' + entry.value + '"',
+            style: const TextStyle(color: Colors.redAccent),
             onTap: () {
               FnPrintUtils.printMsg("${entry.key}: ${entry.value}");
             },
@@ -173,13 +173,13 @@ class _FnJsonObjectViewerState extends State<FnJsonObjectViewer> {
       return Expanded(
           child: Text(
         entry.value.toString(),
-        style: TextStyle(color: Colors.purple),
+        style: const TextStyle(color: Colors.purple),
       ));
     } else if (entry.value is double) {
       return Expanded(
           child: SelectableText(
             entry.value.toString(),
-            style: TextStyle( color: Colors.teal),
+            style: const TextStyle( color: Colors.teal),
             onTap: () {
               FnPrintUtils.printMsg("${entry.key}: ${entry.value}");
             },
@@ -187,7 +187,7 @@ class _FnJsonObjectViewerState extends State<FnJsonObjectViewer> {
       );
     } else if (entry.value is List) {
       if (entry.value.isEmpty) {
-        return Text(
+        return const Text(
           'Array[0]',
           style: TextStyle(color: Colors.black87),
         );
@@ -198,7 +198,7 @@ class _FnJsonObjectViewerState extends State<FnJsonObjectViewer> {
               'Array<${getTypeName(entry.value[0])}>[${entry.value.length}]',
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black87,
               ),
             ),
@@ -217,7 +217,7 @@ class _FnJsonObjectViewerState extends State<FnJsonObjectViewer> {
             FnTextUtils.breakWord(entry.value.toString()),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.black87
             ),
           ),
@@ -228,16 +228,6 @@ class _FnJsonObjectViewerState extends State<FnJsonObjectViewer> {
           },
         )
     );
-    return InkWell(
-        child: Text(
-          {entry.key: entry.value}.toString(),
-          style: TextStyle(color: Colors.grey),
-        ),
-        onTap: () {
-          setState(() {
-            openFlag[entry.key] = !(openFlag[entry.key] ?? false);
-          });
-        });
   }
 
   static isExtensible(dynamic content) {
@@ -276,10 +266,10 @@ class FnJsonArrayViewer extends StatefulWidget {
 
   final bool notRoot;
 
-  FnJsonArrayViewer(this.jsonArray, {this.notRoot: false});
+  const FnJsonArrayViewer(this.jsonArray, {Key? key, this.notRoot = false}) : super(key: key);
 
   @override
-  _FnJsonArrayViewerState createState() => new _FnJsonArrayViewerState();
+  _FnJsonArrayViewerState createState() => _FnJsonArrayViewerState();
 }
 
 class _FnJsonArrayViewerState extends State<FnJsonArrayViewer> {
@@ -289,7 +279,7 @@ class _FnJsonArrayViewerState extends State<FnJsonArrayViewer> {
   Widget build(BuildContext context) {
     if (widget.notRoot) {
       return Container(
-          padding: EdgeInsets.only(left: 14.0),
+          padding: const EdgeInsets.only(left: 14.0),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: _getList()));
@@ -320,7 +310,7 @@ class _FnJsonArrayViewerState extends State<FnJsonArrayViewer> {
               : Text('[$i]',
                   style: TextStyle(color: content == null ? Colors.grey : Colors.purple[900])
                 ),
-          Text(
+          const Text(
             ':',
             style: TextStyle(color: Colors.grey),
           ),
@@ -370,7 +360,7 @@ class _FnJsonArrayViewerState extends State<FnJsonArrayViewer> {
 
   getValueWidget(dynamic content, int index) {
     if (content == null) {
-      return Expanded(
+      return const Expanded(
           child: Text(
         'undefined',
         style: TextStyle(color: Colors.grey),
@@ -379,7 +369,7 @@ class _FnJsonArrayViewerState extends State<FnJsonArrayViewer> {
       return Expanded(
           child: SelectableText(
             content.toString(),
-            style: TextStyle(color: Colors.teal),
+            style: const TextStyle(color: Colors.teal),
             onTap: () {
               FnPrintUtils.printMsg(content.toString());
             },
@@ -388,8 +378,8 @@ class _FnJsonArrayViewerState extends State<FnJsonArrayViewer> {
     } else if (content is String) {
       return Expanded(
           child: SelectableText(
-            '\"' + content + '\"',
-            style: TextStyle(color: Colors.redAccent),
+            '"' + content + '"',
+            style: const TextStyle(color: Colors.redAccent),
             onTap: () {
               FnPrintUtils.printMsg(content);
             },
@@ -399,7 +389,7 @@ class _FnJsonArrayViewerState extends State<FnJsonArrayViewer> {
       return Expanded(
           child: SelectableText(
             content.toString(),
-            style: TextStyle(color: Colors.purple),
+            style: const TextStyle(color: Colors.purple),
             onTap: () {
               FnPrintUtils.printMsg(content.toString());
             },
@@ -409,7 +399,7 @@ class _FnJsonArrayViewerState extends State<FnJsonArrayViewer> {
       return Expanded(
           child: SelectableText(
             content.toString(),
-            style: TextStyle(color: Colors.teal),
+            style: const TextStyle(color: Colors.teal),
               onTap: () {
                 FnPrintUtils.printMsg(content.toString());
               },
@@ -417,7 +407,7 @@ class _FnJsonArrayViewerState extends State<FnJsonArrayViewer> {
       );
     } else if (content is List) {
       if (content.isEmpty) {
-        return Text(
+        return const Text(
           'Array[0]',
           style: TextStyle(color: Colors.grey),
         );
@@ -425,7 +415,7 @@ class _FnJsonArrayViewerState extends State<FnJsonArrayViewer> {
         return InkWell(
             child: Text(
               'Array<${_FnJsonObjectViewerState.getTypeName(content)}>[${content.length}]',
-              style: TextStyle(color: Colors.black87),
+              style: const TextStyle(color: Colors.black87),
             ),
             onTap: () {
               setState(() {
@@ -440,7 +430,7 @@ class _FnJsonArrayViewerState extends State<FnJsonArrayViewer> {
             FnTextUtils.breakWord(content.toString()),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.black87
             ),
           ),

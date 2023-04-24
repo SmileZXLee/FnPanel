@@ -7,7 +7,7 @@ class FnCustomExpansionTitle extends StatefulWidget {
   final Widget title;
   final List<Widget> children;
 
-  const FnCustomExpansionTitle({required this.title, required this.children});
+  const FnCustomExpansionTitle({Key? key, required this.title, required this.children}) : super(key: key);
 
   @override
   _FnCustomExpansionTitleState createState() => _FnCustomExpansionTitleState();
@@ -19,8 +19,8 @@ class _FnCustomExpansionTitleState extends State<FnCustomExpansionTitle> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(bottom: 5.0, top: 5.0),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.only(bottom: 5.0, top: 5.0),
+      decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(
             width: 1,
@@ -38,7 +38,7 @@ class _FnCustomExpansionTitleState extends State<FnCustomExpansionTitle> {
               });
             },
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
 
               child: Row(
                 children: [
@@ -47,9 +47,7 @@ class _FnCustomExpansionTitleState extends State<FnCustomExpansionTitle> {
                     color: Colors.black,
                     size: 16,
                   ),
-                  SizedBox(
-                      width: 2
-                  ),
+                  const SizedBox(width: 2),
                   widget.title,
                 ],
               ),

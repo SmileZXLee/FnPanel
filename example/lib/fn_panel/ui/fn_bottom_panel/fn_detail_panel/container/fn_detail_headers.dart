@@ -18,7 +18,6 @@ class FnDetailHeaders extends StatefulWidget {
 }
 
 class _FnDetailHeadersState extends State<FnDetailHeaders> {
-  bool _isExpanded = false;
 
   @override
   void initState() {
@@ -27,13 +26,11 @@ class _FnDetailHeadersState extends State<FnDetailHeaders> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: MediaQuery.removePadding(
-        context: context,
-        removeTop: true,
-        child:  ListView(
-          children: getHeaderWidgets(),
-        ),
+    return MediaQuery.removePadding(
+      context: context,
+      removeTop: true,
+      child:  ListView(
+        children: getHeaderWidgets(),
       ),
     );
   }
@@ -98,7 +95,7 @@ class _FnDetailHeadersState extends State<FnDetailHeaders> {
     return FnCustomExpansionTitle(
       title: Text(
         title,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 13.0,
           fontWeight: FontWeight.bold
         ),
@@ -111,17 +108,17 @@ class _FnDetailHeadersState extends State<FnDetailHeaders> {
               removeTop: true,
               removeBottom: true,
               child: ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: headers.length,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
                   Map<String, String> header = headers[index];
                   return Container(
-                    padding: EdgeInsets.only(left: 15, bottom: 5),
+                    padding: const EdgeInsets.only(left: 15, bottom: 5),
                     child: SelectableText.rich(
                       TextSpan(
                         text: '${header['title']}: ',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                           fontSize: 13.0,

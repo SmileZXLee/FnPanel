@@ -35,7 +35,7 @@ class _FnBriefPanelState extends State<FnBriefPanel> {
     return Visibility(
       visible: _requestList.isNotEmpty,
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           border: Border(
             right: BorderSide(
               width: 0.5,
@@ -49,10 +49,10 @@ class _FnBriefPanelState extends State<FnBriefPanel> {
               children: [
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.only(left: 8.0, top: 4.0, bottom: 4.0, right: 6.0),
+                    padding: const EdgeInsets.only(left: 8.0, top: 4.0, bottom: 4.0, right: 6.0),
                     child: Stack(
                       children: [
-                        Text(
+                        const Text(
                           "Name",
                           style: TextStyle(
                               fontSize: 13.0,
@@ -62,7 +62,7 @@ class _FnBriefPanelState extends State<FnBriefPanel> {
                         Positioned(
                           right: 0,
                           child: GestureDetector(
-                            child: Icon(
+                            child: const Icon(
                               Icons.not_interested,
                               color: Colors.black54,
                               size: 15.0,
@@ -99,9 +99,9 @@ class _FnBriefPanelState extends State<FnBriefPanel> {
                           }
                         },
                         child: Container(
-                          color: _selectedIndex == index ? (isError ? Color(0xFFF4D3D0) : Colors.blue) : (index % 2 == 0 ? null : const Color(0xFFF3F3F3)),
+                          color: _selectedIndex == index ? (isError ? const Color(0xFFF4D3D0) : Colors.blue) : (index % 2 == 0 ? null : const Color(0xFFF3F3F3)),
                           child: Padding(
-                            padding: EdgeInsets.only(left: 4, right: 4, top: 5, bottom: 5),
+                            padding: const EdgeInsets.only(left: 4, right: 4, top: 5, bottom: 5),
                             child: Text(
                               FnTextUtils.breakWord(title),
                               maxLines: 1,
@@ -136,10 +136,10 @@ class _FnBriefPanelState extends State<FnBriefPanel> {
   }
 
   void _scrollToBottom() {
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollController.animateTo(
         _scrollController.position.maxScrollExtent,
-        duration: Duration(milliseconds: 10),
+        duration: const Duration(milliseconds: 10),
         curve: Curves.linear,
       );
     });

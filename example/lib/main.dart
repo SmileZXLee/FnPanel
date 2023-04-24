@@ -56,15 +56,15 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'FnPanel已加载，可发送请求测试',
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => RequestTestPage()),
+                  MaterialPageRoute(builder: (context) => const RequestTestPage()),
                 );
               },
-              child: Text('前往发送请求'),
+              child: const Text('前往发送请求'),
             )
           ],
         ),

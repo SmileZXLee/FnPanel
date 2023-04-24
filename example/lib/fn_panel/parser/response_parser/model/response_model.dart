@@ -16,7 +16,7 @@ class ResponseModel extends Object{
   Map<String, dynamic> headers;
 
   /// Response Data
-  dynamic? data;
+  dynamic data;
 
   /// timestamp
   int timestamp;
