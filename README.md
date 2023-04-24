@@ -42,7 +42,7 @@ FnPanel.setGlobalButton(context);
 FnPanel.showPanel(context);
 ```
 
-【可选】全局配置
+【可选】全局配置(在`FnPanel.setGlobalButton`之前配置)
 ```dart
 // 修改全局Button距离bottom 100(默认距离bottom 20，right 20)
 FnPanel.setConfig(
