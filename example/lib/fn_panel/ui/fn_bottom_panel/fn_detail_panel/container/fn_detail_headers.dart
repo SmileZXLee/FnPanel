@@ -4,7 +4,6 @@ import '../../../../parser/request_parser/model/request_model.dart';
 import '../../../../parser/response_parser/model/response_model.dart';
 import '../../../../ui/base/fn_custom_expansion_tile.dart';
 import '../../../../utils/fn_print_utils.dart';
-import '../../../../utils/fn_text_utils.dart';
 
 /// FnPanel
 ///
@@ -56,7 +55,7 @@ class _FnDetailHeadersState extends State<FnDetailHeaders> {
     RequestModel? requestModel = widget.requestModel;
     ResponseModel? responseModel = requestModel?.response;
     List<Map<String, String>> commonHeaders = [
-      {"title": "Request URL", "desc": FnTextUtils.breakWord((requestModel?.url).toString())},
+      {"title": "Request URL", "desc": (requestModel?.url).toString()},
       {"title": "Request Method", "desc": (requestModel?.method).toString()}
     ];
     if (responseModel != null) {
@@ -135,7 +134,7 @@ class _FnDetailHeadersState extends State<FnDetailHeaders> {
                         ],
                       ),
                       onTap: () {
-                        FnPrintUtils.printMsg("${header['title']}: ${FnTextUtils.removeU200B(header['desc'].toString())}");
+                        FnPrintUtils.printMsg("${header['title']}: ${header['desc']}");
                       },
                     ),
                   );
